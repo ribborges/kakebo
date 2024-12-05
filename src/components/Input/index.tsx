@@ -1,5 +1,5 @@
 import { StyleProp, StyleSheet, Text, TextInput, TextInputProps, TextStyle, useColorScheme, View, ViewStyle } from "react-native";
-import { DARK_THEME, LIGHT_THEME } from "@/constants/theme";
+import { ACCENT_COLORS, DARK_THEME, LIGHT_THEME } from "@/constants/theme";
 
 import { baseStyles, themeStyles } from "./style";
 
@@ -18,6 +18,7 @@ function TextField({ label, containerStyle, labelStyle, ...props }: TextFieldPro
         <View style={StyleSheet.flatten([baseStyles.inputContainer, containerStyle])}>
             {label && <Text style={StyleSheet.flatten([[baseStyles.label, themedLabel], labelStyle])}>{label}</Text>}
             <TextInput
+                cursorColor={ACCENT_COLORS.seccondary}
                 placeholderTextColor={colorScheme === 'light' ? LIGHT_THEME.secondaryColor : DARK_THEME.secondaryColor}
                 {...props}
                 style={StyleSheet.flatten([[baseStyles.input, themedInput], props.style])}
