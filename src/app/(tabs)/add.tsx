@@ -12,6 +12,9 @@ export default function AddPage() {
                     label: "Expenses",
                     content: <Text style={{ color: "white" }}>Expenses</Text>
                 }, {
+                    label: "Savings",
+                    content: <Text style={{ color: "white" }}>Savings</Text>
+                }, {
                     label: "Category",
                     content: <Text style={{ color: "white" }}>History</Text>
                 }
