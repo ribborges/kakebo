@@ -46,7 +46,7 @@ export function Toggle(props: toggleContainerProps) {
                     )
                 })}
             </ScrollView>
-            <ScrollView>
+            <ScrollView style={baseStyles.content}>
                 {props.items[active].content}
             </ScrollView>
         </View>

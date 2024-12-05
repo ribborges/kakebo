@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 
 const baseStyles = StyleSheet.create({
     toggleContainer: {
+        width: '100%',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center'
@@ -30,6 +31,10 @@ const baseStyles = StyleSheet.create({
         borderRadius: 5,
         width: '100%',
         marginTop: 5
+    },
+    content: {
+        flexDirection: 'column',
+        width: '100%',
     }
 });
 
