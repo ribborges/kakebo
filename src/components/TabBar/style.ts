@@ -19,8 +19,8 @@ const baseStyles = StyleSheet.create({
         gap: 5
     },
     button: {
-        height: 50,
-        width: 50,
+        height: 55,
+        width: 55,
         padding: 10,
         margin: 5,
         borderRadius: 99,
@@ -30,9 +30,6 @@ const baseStyles = StyleSheet.create({
     },
     label: {
         fontSize: 10
-    },
-    selected: {
-        backgroundColor: ACCENT_COLORS.primary,
     }
 });
 
@@ -52,6 +49,16 @@ const themeStyles = StyleSheet.create({
     },
     labelDark: {
         color: DARK_THEME.color
+    },
+    selectedLight: {
+        borderWidth: 1,
+        backgroundColor: LIGHT_THEME.traslucentContainerSecondaryColor,
+        borderColor: LIGHT_THEME.translucentContainerColor
+    },
+    selectedDark: {
+        borderWidth: 1,
+        backgroundColor: DARK_THEME.traslucentContainerSecondaryColor,
+        borderColor: DARK_THEME.translucentContainerColor
     }
 });
 

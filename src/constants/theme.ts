@@ -5,6 +5,7 @@ interface Theme {
     borderColor: string,
     containerColor: string,
     translucentContainerColor: string,
+    traslucentContainerSecondaryColor: string,
     shadowColor: string
 }
 
@@ -24,6 +25,7 @@ const LIGHT_THEME: Theme = {
     borderColor: '#dddddd',
     containerColor: '#eeeeee',
     translucentContainerColor: '#dddddd80',
+    traslucentContainerSecondaryColor: '#dadada80',
     shadowColor: '#fff'
 }
 
@@ -34,6 +36,7 @@ const DARK_THEME: Theme = {
     borderColor: '#1d1d1d',
     containerColor: '#141414',
     translucentContainerColor: '#1d1d1d80',
+    traslucentContainerSecondaryColor: '#5f5f5f80',
     shadowColor: '#000'
 }
 

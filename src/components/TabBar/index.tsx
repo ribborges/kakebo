@@ -14,9 +14,10 @@ interface tabBarBtnProps extends PressableProps {
 function TabBarButton({ isFocused, label, icon, ...props }: tabBarBtnProps) {
     const colorScheme = useColorScheme();
     const labelTheme = isFocused ? themeStyles.labelDark : colorScheme === 'light' ? themeStyles.labelLight : themeStyles.labelDark;
+    const selectedTheme = isFocused ? themeStyles.selectedDark : colorScheme === 'light' ? themeStyles.selectedLight : themeStyles.selectedDark;
 
     return (
-        <Pressable {...props} style={[baseStyles.button, isFocused && baseStyles.selected]}>
+        <Pressable {...props} style={[baseStyles.button, isFocused && selectedTheme]}>
             {icon({ focused: isFocused })}
             <Text style={[baseStyles.label, labelTheme]}>{label}</Text>
         </Pressable>
