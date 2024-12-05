@@ -25,7 +25,7 @@ export default function TabLayout() {
                 name="index"
                 options={{
                     title: 'Home',
-                    tabBarIcon: ({ focused, color }) => (
+                    tabBarIcon: ({ focused }) => (
                         focused ? <Foundation name={'home'} size={18} color={DARK_THEME.color} />
                             : <Octicons name={'home'} size={16} color={iconColor} />
                     ),
@@ -36,7 +36,7 @@ export default function TabLayout() {
                 name="add"
                 options={{
                     title: 'Add',
-                    tabBarIcon: ({ focused, color }) => (
+                    tabBarIcon: ({ focused }) => (
                         focused ? <Foundation name={'plus'} size={16} color={DARK_THEME.color} />
                             : <Octicons name={'plus'} size={16} color={iconColor} />
                     ),
@@ -47,7 +47,7 @@ export default function TabLayout() {
                 name="profile"
                 options={{
                     title: 'Profile',
-                    tabBarIcon: ({ focused, color }) => (
+                    tabBarIcon: ({ focused }) => (
                         focused ? <Octicons name={'person-fill'} size={16} color={DARK_THEME.color} />
                             : <Octicons name={'person'} size={16} color={iconColor} />
                     ),

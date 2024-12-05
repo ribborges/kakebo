@@ -8,17 +8,16 @@ import { baseStyles, themeStyles } from './style';
 interface tabBarBtnProps extends PressableProps {
     isFocused: boolean,
     label: string,
-    color: string,
     icon: any
 }
 
-function TabBarButton({ isFocused, label, color, icon, ...props }: tabBarBtnProps) {
+function TabBarButton({ isFocused, label, icon, ...props }: tabBarBtnProps) {
     const colorScheme = useColorScheme();
     const labelTheme = isFocused ? themeStyles.labelDark : colorScheme === 'light' ? themeStyles.labelLight : themeStyles.labelDark;
 
     return (
         <Pressable {...props} style={[baseStyles.button, isFocused && baseStyles.selected]}>
-            {icon({ focused: isFocused, color })}
+            {icon({ focused: isFocused })}
             <Text style={[baseStyles.label, labelTheme]}>{label}</Text>
         </Pressable>
     )
@@ -27,8 +26,6 @@ function TabBarButton({ isFocused, label, color, icon, ...props }: tabBarBtnProp
 function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
     const colorScheme = useColorScheme();
     const themedTabBar = colorScheme === 'light' ? themeStyles.headerLight : themeStyles.headerDark;
-    const primaryColor = '#0891b2';
-    const greyColor = '#737373';
 
     return (
         <BlurView intensity={10} experimentalBlurMethod="dimezisBlurView" style={[baseStyles.tabbar, themedTabBar]}>
@@ -72,7 +69,6 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
                         onPress={onPress}
                         onLongPress={onLongPress}
                         isFocused={isFocused}
-                        color={isFocused ? primaryColor : greyColor}
                         label={label}
                     />
                 )
