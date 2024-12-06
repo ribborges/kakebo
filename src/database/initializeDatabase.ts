@@ -26,6 +26,7 @@ export async function initializeDatabase(database: SQLiteDatabase) {
         CREATE TABLE IF NOT EXISTS transactions (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             value REAL NOT NULL,
+            description TEXT NOT NULL,
             type INTEGER NOT NULL,
             category_id INTEGER NOT NULL,
             FOREIGN KEY (type) REFERENCES income_categories (id),
