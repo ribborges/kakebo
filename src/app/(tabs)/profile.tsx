@@ -1,5 +1,5 @@
 import { View, StyleSheet, useColorScheme } from "react-native";
-import { Button } from "@/components/Button";
+import { OptionButton } from "@/components/Button";
 import { PanelContainer } from "@/components/Container";
 import { ProfileTag } from "@/components/ProfileTag";
 import { FontAwesome } from "@expo/vector-icons";
@@ -35,7 +35,7 @@ export default function ProfilePage() {
             <PanelContainer style={{ padding: 5, gap: 10 }}>
                 {
                     options.map((option, index) => (
-                        <Button key={index} label={option.label} icon={option.icon} />
+                        <OptionButton key={index} label={option.label} icon={option.icon} />
                     ))
                 }
             </PanelContainer>

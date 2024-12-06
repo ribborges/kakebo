@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Toggle } from "@/components/Toggle";
+import NewIncome from "@/screens/NewIncome";
 
 export default function AddPage() {
     return (
@@ -7,7 +8,7 @@ export default function AddPage() {
             <Toggle id="add" items={[
                 {
                     label: "Income",
-                    content: <Text style={{ color: "white" }}>Income</Text>
+                    content: <NewIncome />
                 }, {
                     label: "Expenses",
                     content: <Text style={{ color: "white" }}>Expenses</Text>
