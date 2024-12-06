@@ -14,6 +14,24 @@ const baseStyles = StyleSheet.create({
     label: {
         marginHorizontal: 10,
         fontWeight: "bold"
+    },
+    optionContainer: {
+        flexDirection: 'row',
+        gap: 10
+    },
+    option: {
+        alignItems: 'center',
+        padding: 20,
+        margin: 5,
+        borderRadius: 22,
+        borderWidth: 1,
+        gap: 5
+    },
+    icon: {
+        width: 22,
+        height: 22,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 
@@ -33,6 +51,16 @@ const themeStyles = StyleSheet.create({
     },
     labelDark: {
         color: DARK_THEME.color
+    },
+    optionLight: {
+        color: LIGHT_THEME.color,
+        backgroundColor: LIGHT_THEME.translucentContainerColor,
+        borderColor: LIGHT_THEME.borderColor
+    },
+    optionDark: {
+        color: DARK_THEME.color,
+        backgroundColor: DARK_THEME.translucentContainerColor,
+        borderColor: DARK_THEME.borderColor
     }
 });
 

@@ -1,24 +1,54 @@
 import { ReactNode } from "react";
-import { View, TouchableOpacity, Text, useColorScheme } from "react-native";
+import { View, TouchableOpacity, Text, useColorScheme, TouchableOpacityProps, StyleSheet } from "react-native";
+
 import { baseStyles, themeStyles } from "./style";
 
-interface ButtonProps {
-    label: string;
-    icon: ReactNode;
+interface ButtonProps extends TouchableOpacityProps {
+    label?: string;
+    icon?: ReactNode;
 }
 
-function Button({ label, icon }: ButtonProps) {
+function OptionButton({ label, icon, ...props }: ButtonProps) {
     const colorScheme = useColorScheme();
     const buttonLabelStyle = colorScheme === "dark" ? themeStyles.buttonLabelDark : themeStyles.buttonLabelLight;
 
     return (
-        <TouchableOpacity style={baseStyles.button}>
-            <View style={baseStyles.icon}>
-                {icon}
-            </View>
-            <Text style={[baseStyles.buttonLabel, buttonLabelStyle]}>{label}</Text>
+        <TouchableOpacity style={baseStyles.optionButton} {...props}>
+            {
+                icon ? (
+                    <View style={baseStyles.icon}>
+                        {icon}
+                    </View>
+                ) : null
+            }
+            {
+                label ? (
+                    <Text style={[baseStyles.buttonLabel, buttonLabelStyle]}>{label}</Text>
+                ) : null
+            }
+            {props.children}
         </TouchableOpacity>
     );
 }
 
-export { Button };
+function Button({ label, icon, activeOpacity = 0.8, ...props }: ButtonProps) {
+    return (
+        <TouchableOpacity style={StyleSheet.flatten([baseStyles.button, props.style])} activeOpacity={activeOpacity} {...props}>
+            {
+                icon ? (
+                    <View style={baseStyles.icon}>
+                        {icon}
+                    </View>
+                ) : null
+            }
+            {
+                label ? (
+                    <Text style={baseStyles.buttonLabel}>{label}</Text>
+                ) : null
+            }
+            {props.children}
+        </TouchableOpacity>
+    );
+}
+
+export { OptionButton, Button };
