@@ -1,5 +1,5 @@
-import { DARK_THEME, LIGHT_THEME } from "@/constants/theme";
 import { StyleSheet } from "react-native";
+import { ACCENT_COLORS, DARK_THEME, LIGHT_THEME } from "@/constants/theme";
 
 const baseStyles = StyleSheet.create({
     inputContainer: {
@@ -26,6 +26,10 @@ const baseStyles = StyleSheet.create({
         borderRadius: 22,
         borderWidth: 1,
         gap: 5
+    },
+    selectedOption: {
+        borderColor: ACCENT_COLORS.seccondary,
+        backgroundColor: ACCENT_COLORS.seccondary + '22'
     },
     icon: {
         width: 22,
