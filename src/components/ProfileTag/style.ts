@@ -14,7 +14,9 @@ const baseStyles = StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 50,
-        borderWidth: 1
+        borderWidth: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     profileName: {
         flex: 1,
