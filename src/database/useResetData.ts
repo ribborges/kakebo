@@ -18,7 +18,6 @@ export function useResetData() {
             console.error(error);
         } finally {
             await statement.finalizeAsync();
-            await db.closeAsync();
         }
     }
 

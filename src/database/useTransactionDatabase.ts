@@ -45,8 +45,6 @@ export function useTransactionDatabase() {
             return result;
         } catch (error) {
             throw error;
-        } finally {
-            await db.closeAsync();
         }
     }
 

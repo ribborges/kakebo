@@ -41,8 +41,6 @@ export function useCategoriesDatabase() {
             return result;
         } catch (error) {
             throw error;
-        } finally {
-            await db.closeAsync();
         }
     }
 
