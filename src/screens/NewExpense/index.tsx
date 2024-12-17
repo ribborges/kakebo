@@ -70,7 +70,7 @@ function NewIncome() {
         <PanelContainer>
             <TextField label="Value" onChangeText={setValue} value={value} keyboardType="number-pad" />
             <TextField label="Description" onChangeText={setDescription} value={description} />
-            <OptionSelector onChange={handleCategoryChange} onlyOne={true} options={
+            <OptionSelector label="Category" onChange={handleCategoryChange} onlyOne={true} options={
                 categories.map((category) => ({
                     label: category.name,
                     value: category.id.toString(),
