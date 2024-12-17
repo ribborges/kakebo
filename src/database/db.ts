@@ -4,12 +4,10 @@ export const dbName = "kakebo.db";
 
 export async function initializeDatabase(database: SQLiteDatabase) {
     try {
-        await database.execAsync(dbSchema);
-        console.log('Database has been initialized');
+        const res = await database.execAsync(dbSchema);
+        console.log('Database has been initialized: ', res);
     } catch (error) {
         console.error(error);
-    } finally {
-        await database.closeAsync();
     }
 }
 
