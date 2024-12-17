@@ -1,9 +1,12 @@
-import { View, Text, useColorScheme } from 'react-native';
+import { View, Text, useColorScheme, Button, Alert } from 'react-native';
 import { Container, PanelContainer } from '@/components/Container';
 import { FontAwesome } from '@expo/vector-icons';
 import { ACCENT_COLORS } from '@/constants/theme';
+import { TransactionDatabase, useTransactionDatabase } from '@/database/useTransactionDatabase';
 
 import { baseStyles, themeStyles } from './style';
+import { useEffect, useState } from 'react';
+import { CategoryDatabase, useCategoriesDatabase } from '@/database/useCategoriesDatabase';
 
 // Dummy data for demonstration
 const financialData = {
@@ -155,16 +158,33 @@ interface ExpenseCategoryProps {
 }
 
 function Categories() {
+    const [result, setResult] = useState<CategoryDatabase[]>([]);
+    const categoriesDb = useCategoriesDatabase();
+
+    const list = async () => {
+        try {
+            const res = await categoriesDb.list();
+            setResult(res);
+        } catch (error) {
+            if (error instanceof Error) {
+                return Alert.alert('Error', error.message);
+            }
+
+            return Alert.alert('Error', 'An unknown error occurred');
+        }
+    }
+
     return (
         <PanelContainer title="Expense Categories">
+            <Button title="Refresh" onPress={() => list()} color={ACCENT_COLORS.primary} />
             {
-                financialData.detailedExpenses.map((expense, index) => (
+                result.map((expense, index) => (
                     <Expense
                         key={index}
-                        title={expense.title}
+                        title={expense.name}
                         icon={expense.icon}
-                        iconColor={expense.iconColor}
-                        amount={expense.amount}
+                        iconColor={expense.color}
+                        amount={expense.id}
                     />
                 ))
             }
@@ -173,15 +193,26 @@ function Categories() {
 }
 
 function ExpenseHistory() {
+    const [result, setResult] = useState<TransactionDatabase[]>([]);
+
+    const transactionDb = useTransactionDatabase();
+
+    const list = async () => {
+        const res = await transactionDb.list();
+        setResult(res);
+    }
+
     return (
         <Container title="Expense History">
+            <Button title="Refresh" onPress={() => list()} color={ACCENT_COLORS.primary} />
+
             {
-                financialData.historyExpenses.map((expense, index) => (
+                result.map((expense, index) => (
                     <Expense
                         key={index}
-                        title={expense.title}
-                        icon={expense.icon}
-                        amount={expense.amount}
+                        title={expense.description}
+                        icon={"shopping-cart"}
+                        amount={expense.value}
                     />
                 ))
             }

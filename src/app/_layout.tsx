@@ -4,13 +4,13 @@ import { SQLiteProvider } from "expo-sqlite";
 import Header from "@/components/Header";
 import BackBtn from "@/components/BackBtn";
 import { DARK_THEME, LIGHT_THEME } from "@/constants/theme";
-import { initializeDatabase } from "@/database/initializeDatabase";
+import { dbName, initializeDatabase } from "@/database/db";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <SQLiteProvider databaseName="kakebo.db" onInit={initializeDatabase}>
+    <SQLiteProvider databaseName={dbName} onInit={initializeDatabase}>
       <Stack
         screenOptions={{
           statusBarStyle: colorScheme === "light" ? "dark" : "light",
