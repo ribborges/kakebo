@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Toggle } from "@/components/Toggle";
 import NewIncome from "@/screens/NewExpense";
+import NewCategory from "@/screens/NewCategory";
 
 export default function AddPage() {
     return (
@@ -17,7 +18,7 @@ export default function AddPage() {
                     content: <Text style={{ color: "white" }}>Savings</Text>
                 }, {
                     label: "Category",
-                    content: <Text style={{ color: "white" }}>History</Text>
+                    content: <NewCategory />
                 }
             ]} />
         </View>
