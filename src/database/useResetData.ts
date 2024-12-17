@@ -11,12 +11,14 @@ export function useResetData() {
             await statement.executeAsync({ $table: 'expense_categories' });
             await statement.executeAsync({ $table: 'transaction_categories' });
             await statement.executeAsync({ $table: 'transactions' });
+            await db.execAsync(dbSchema);
 
             return (`Database has been reset`);
         } catch (error) {
             console.error(error);
         } finally {
             await statement.finalizeAsync();
+            await db.closeAsync();
         }
     }
 
