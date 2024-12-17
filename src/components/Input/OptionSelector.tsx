@@ -1,11 +1,13 @@
 import { ReactNode, useState } from "react";
-import { StyleSheet, Text, useColorScheme, View, ScrollView, ScrollViewProps, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, useColorScheme, View, ScrollView, ScrollViewProps, TouchableOpacity, StyleProp, TextStyle } from "react-native";
 
 import { baseStyles, themeStyles } from "./style";
 
 interface OptionSelectorProps extends ScrollViewProps {
+    label?: string;
+    labelStyle?: StyleProp<TextStyle>;
     options?: {
-        label: string;
+        label?: string;
         value: string;
         children?: ReactNode;
     }[];
@@ -15,7 +17,7 @@ interface OptionSelectorProps extends ScrollViewProps {
 }
 
 interface OptionItemProps {
-    label: string;
+    label?: string;
     value: string;
     children?: ReactNode;
     isSelected?: boolean;
@@ -23,7 +25,9 @@ interface OptionItemProps {
 }
 
 function OptionSelector({
+    label,
     options,
+    labelStyle,
     selectedOption,
     horizontal = true,
     showsHorizontalScrollIndicator = false,
@@ -32,6 +36,9 @@ function OptionSelector({
     ...props
 }: OptionSelectorProps) {
     const [selected, setSelected] = useState<string[] | string>(selectedOption || (onlyOne ? '' : []));
+
+    const colorScheme = useColorScheme();
+    const themedLabel = colorScheme === 'dark' ? themeStyles.labelDark : themeStyles.labelLight;
 
     function handleOptionSelect(value: string) {
         if (onlyOne) {
@@ -56,25 +63,28 @@ function OptionSelector({
     }
 
     return (
-        <ScrollView
-            horizontal={horizontal}
-            showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
-            style={StyleSheet.flatten([baseStyles.optionContainer, props.style])}
-            {...props}
-        >
-            {
-                options?.map((option) => (
-                    <OptionItem
-                        key={option.value}
-                        label={option.label}
-                        value={option.value}
-                        children={option.children}
-                        isSelected={selected.includes(option.value)}
-                        onPress={handleOptionSelect}
-                    />
-                ))
-            }
-        </ScrollView>
+        <View>
+            {label && <Text style={StyleSheet.flatten([[baseStyles.label, themedLabel], labelStyle])}>{label}</Text>}
+            <ScrollView
+                horizontal={horizontal}
+                showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
+                style={StyleSheet.flatten([baseStyles.optionContainer, props.style])}
+                {...props}
+            >
+                {
+                    options?.map((option) => (
+                        <OptionItem
+                            key={option.value}
+                            label={option.label}
+                            value={option.value}
+                            children={option.children}
+                            isSelected={selected.includes(option.value)}
+                            onPress={handleOptionSelect}
+                        />
+                    ))
+                }
+            </ScrollView>
+        </View>
     );
 }
 
@@ -92,7 +102,7 @@ function OptionItem({ label, value, children, isSelected, onPress, ...props }: O
             {...props}
         >
             {children && <View style={baseStyles.icon}>{children}</View>}
-            <Text style={themedLabel}>{label}</Text>
+            {label && <Text style={themedLabel}>{label}</Text>}
         </TouchableOpacity>
     );
 }
