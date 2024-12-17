@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Text } from "react-native";
 import { Button } from "@/components/Button";
 import { PanelContainer } from "@/components/Container";
 import { TextField, OptionSelector } from "@/components/Input";
 import { FontAwesome } from "@expo/vector-icons";
 import { useTransactionDatabase } from "@/database/useTransactionDatabase";
+import { CategoryDatabase, useCategoriesDatabase } from "@/database/useCategoriesDatabase";
 
 function NewIncome() {
     const [value, setValue] = useState('');
     const [description, setDescription] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
+    const [categories, setCategories] = useState<CategoryDatabase[]>([]);
 
     const handleCategoryChange = (value: string[] | string) => {
         if (Array.isArray(value)) {
@@ -20,6 +22,7 @@ function NewIncome() {
     }
 
     const transactionDb = useTransactionDatabase();
+    const categoryDb = useCategoriesDatabase();
 
     const handleSave = async () => {
         try {
@@ -49,31 +52,31 @@ function NewIncome() {
         }
     };
 
+    const loadCategories = async () => {
+        try {
+            const categories = await categoryDb.list();
+            setCategories(categories);
+            console.log(categories);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        loadCategories();
+    }, []);
+
     return (
         <PanelContainer>
             <TextField label="Value" onChangeText={setValue} value={value} keyboardType="number-pad" />
             <TextField label="Description" onChangeText={setDescription} value={description} />
-            <OptionSelector onChange={handleCategoryChange} onlyOne={true} options={[
-                {
-                    label: "Survival",
-                    value: "1",
-                    children: <FontAwesome name="shopping-cart" size={22} color={"#ffe600"} />
-                }, {
-                    label: "Leisure",
-                    value: "2",
-                    children: <FontAwesome name="coffee" size={22} color={"#00ccff"} />
-                },
-                {
-                    label: "Culture",
-                    value: "3",
-                    children: <FontAwesome name="book" size={22} color={"#ff00ff"} />
-                },
-                {
-                    label: "Extra",
-                    value: "4",
-                    children: <FontAwesome name="dollar" size={22} color={"#00ff00"} />
-                }
-            ]} />
+            <OptionSelector onChange={handleCategoryChange} onlyOne={true} options={
+                categories.map((category) => ({
+                    label: category.name,
+                    value: category.id.toString(),
+                    children: <FontAwesome name={category.icon as any} size={22} color={category.color} />
+                }))
+            } />
             <Button label="Save" onPress={() => handleSave()} />
             <Text style={{ color: "#eee" }}>{selectedCategory}</Text>
         </PanelContainer>
