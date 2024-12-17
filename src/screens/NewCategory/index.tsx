@@ -152,7 +152,6 @@ function NewCategory() {
                 }
             ]} />
             <Button label="Save" onPress={() => handleSave()} />
-            <Text style={{ color: "#eee" }}>{icon}</Text>
         </PanelContainer>
     );
 }

@@ -78,7 +78,6 @@ function NewIncome() {
                 }))
             } />
             <Button label="Save" onPress={() => handleSave()} />
-            <Text style={{ color: "#eee" }}>{selectedCategory}</Text>
         </PanelContainer>
     );
 }
