@@ -1,4 +1,4 @@
-import { View, Text, useColorScheme, Button, Alert } from 'react-native';
+import { View, Text, useColorScheme, Alert } from 'react-native';
 import { Container, PanelContainer } from '@/components/Container';
 import { FontAwesome } from '@expo/vector-icons';
 import { ACCENT_COLORS } from '@/constants/theme';
@@ -157,7 +157,7 @@ interface ExpenseCategoryProps {
     iconColor?: string;
 }
 
-function Categories() {
+function Categories({ refresh }: { refresh: boolean }) {
     const [result, setResult] = useState<CategoryDatabase[]>([]);
     const categoriesDb = useCategoriesDatabase();
 
@@ -174,9 +174,13 @@ function Categories() {
         }
     }
 
+    useEffect(() => {
+        list();
+        refresh = false;
+    }, [refresh]);
+
     return (
         <PanelContainer title="Expense Categories">
-            <Button title="Refresh" onPress={() => list()} color={ACCENT_COLORS.primary} />
             {
                 result.map((expense, index) => (
                     <Expense
@@ -192,7 +196,7 @@ function Categories() {
     );
 }
 
-function ExpenseHistory() {
+function TransactionHistory({ refresh }: { refresh: boolean }) {
     const [result, setResult] = useState<TransactionDatabase[]>([]);
 
     const transactionDb = useTransactionDatabase();
@@ -202,22 +206,36 @@ function ExpenseHistory() {
         setResult(res);
     }
 
-    return (
-        <Container title="Expense History">
-            <Button title="Refresh" onPress={() => list()} color={ACCENT_COLORS.primary} />
+    useEffect(() => {
+        list();
+        refresh = false;
+    }, [refresh]);
 
-            {
-                result.map((expense, index) => (
-                    <Expense
-                        key={index}
-                        title={expense.description}
-                        icon={"shopping-cart"}
-                        amount={expense.value}
-                    />
-                ))
-            }
-        </Container>
-    );
+    if (result.length > 0) {
+        return (
+            <Container title="Transaction History">
+                {
+                    result.map((expense, index) => (
+                        <Expense
+                            key={index}
+                            title={expense.description}
+                            icon={"dollar"}
+                            amount={expense.value}
+                            iconColor={
+                                expense.transaction_type === 1
+                                    ? ACCENT_COLORS.success
+                                    : expense.transaction_type === 2
+                                        ? ACCENT_COLORS.danger
+                                        : expense.transaction_type === 3
+                                            ? ACCENT_COLORS.warning
+                                            : ACCENT_COLORS.info
+                            }
+                        />
+                    ))
+                }
+            </Container>
+        );
+    } else { return null; }
 }
 
 function Expense({ title, icon, iconColor, amount }: ExpenseCategoryProps) {
@@ -240,4 +258,4 @@ function Expense({ title, icon, iconColor, amount }: ExpenseCategoryProps) {
     );
 }
 
-export { Categories, ExpenseHistory };
+export { Categories, TransactionHistory };

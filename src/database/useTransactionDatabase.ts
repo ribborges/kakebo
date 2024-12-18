@@ -6,7 +6,7 @@ export type TransactionDatabase = {
     value: number;
     description: string;
     transaction_type: number;
-    category_id: number;
+    category_id: number | null;
 }
 
 export function useTransactionDatabase() {

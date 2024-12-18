@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert, Text } from "react-native";
+import { Alert } from "react-native";
 import { Button } from "@/components/Button";
 import { PanelContainer } from "@/components/Container";
 import { TextField, OptionSelector } from "@/components/Input";
@@ -7,7 +7,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useTransactionDatabase } from "@/database/useTransactionDatabase";
 import { CategoryDatabase, useCategoriesDatabase } from "@/database/useCategoriesDatabase";
 
-function NewIncome() {
+function NewExpense() {
     const [value, setValue] = useState('');
     const [description, setDescription] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
@@ -38,11 +38,11 @@ function NewIncome() {
                 value: parseFloat(value),
                 date: new Date().toISOString(),
                 description,
-                transaction_type: 1,
+                transaction_type: 2,
                 category_id: parseInt(selectedCategory)
             });
 
-            Alert.alert('Success', 'Income added successfully with ID: ' + res.id);
+            Alert.alert('Success', 'Expense added successfully with ID: ' + res.id);
         } catch (error) {
             if (error instanceof Error) {
                 return Alert.alert('Error', error.message);
@@ -81,4 +81,4 @@ function NewIncome() {
     );
 }
 
-export default NewIncome;
+export default NewExpense;

@@ -1,9 +1,18 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, RefreshControl } from 'react-native';
 import Balance from '@/components/Balance';
-import { Categories, ExpenseHistory } from '@/components/Categories';
+import { Categories, TransactionHistory } from '@/components/Categories';
 
 export default function MainPage() {
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            setRefreshing(false);
+        }, 500);
+    }, []);
+
     // Dummy data for demonstration
     const financialData = {
         income: 5000,
@@ -12,10 +21,10 @@ export default function MainPage() {
     };
 
     return (
-        <ScrollView style={styles.scrollView}>
+        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={styles.scrollView}>
             <Balance income={financialData.income} expenses={financialData.expenses} savings={financialData.savings} />
-            <Categories />
-            <ExpenseHistory />
+            <Categories refresh={refreshing} />
+            <TransactionHistory refresh={refreshing} />
             <View style={styles.spacer} />
         </ScrollView>
     );
@@ -24,7 +33,7 @@ export default function MainPage() {
 const styles = StyleSheet.create({
     scrollView: {
         flex: 1,
-        
+
     },
     spacer: {
         height: 80
