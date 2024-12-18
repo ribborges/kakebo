@@ -44,6 +44,7 @@ function OptionSelector({
         if (onlyOne) {
             selectedOption = value;
             setSelected(value);
+            console.log(selectedOption);
         } else {
             if (selectedOption?.includes(value)) {
                 if (Array.isArray(selectedOption)) {
@@ -78,7 +79,7 @@ function OptionSelector({
                             label={option.label}
                             value={option.value}
                             children={option.children}
-                            isSelected={selected.includes(option.value)}
+                            isSelected={onlyOne ? selected === option.value : selected.includes(option.value)}
                             onPress={handleOptionSelect}
                         />
                     ))
