@@ -56,7 +56,6 @@ function NewIncome() {
         try {
             const categories = await categoryDb.list();
             setCategories(categories);
-            console.log(categories);
         } catch (error) {
             console.error(error);
         }
