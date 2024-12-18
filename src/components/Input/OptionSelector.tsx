@@ -44,7 +44,6 @@ function OptionSelector({
         if (onlyOne) {
             selectedOption = value;
             setSelected(value);
-            console.log(selectedOption);
         } else {
             if (selectedOption?.includes(value)) {
                 if (Array.isArray(selectedOption)) {
