@@ -1,12 +1,10 @@
-import { View, Text, useColorScheme, Alert } from 'react-native';
-import { Container, PanelContainer } from '@/components/Container';
+import { View, Text, useColorScheme } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import { Container, PanelContainer } from '@/components/Container';
+import { useCategoryStore, useTransactionStore } from '@/lib/store';
 import { ACCENT_COLORS } from '@/constants/theme';
-import { TransactionDatabase, useTransactionDatabase } from '@/database/useTransactionDatabase';
 
 import { baseStyles, themeStyles } from './style';
-import { useEffect, useState } from 'react';
-import { CategoryDatabase, useCategoriesDatabase } from '@/database/useCategoriesDatabase';
 
 // Dummy data for demonstration
 const financialData = {
@@ -157,32 +155,13 @@ interface ExpenseCategoryProps {
     iconColor?: string;
 }
 
-function Categories({ refresh }: { refresh: boolean }) {
-    const [result, setResult] = useState<CategoryDatabase[]>([]);
-    const categoriesDb = useCategoriesDatabase();
-
-    const list = async () => {
-        try {
-            const res = await categoriesDb.list();
-            setResult(res);
-        } catch (error) {
-            if (error instanceof Error) {
-                return Alert.alert('Error', error.message);
-            }
-
-            return Alert.alert('Error', 'An unknown error occurred');
-        }
-    }
-
-    useEffect(() => {
-        list();
-        refresh = false;
-    }, [refresh]);
+function Categories() {
+    const { categories } = useCategoryStore();
 
     return (
         <PanelContainer title="Expense Categories">
             {
-                result.map((expense, index) => (
+                categories.map((expense, index) => (
                     <Expense
                         key={index}
                         title={expense.name}
@@ -196,37 +175,25 @@ function Categories({ refresh }: { refresh: boolean }) {
     );
 }
 
-function TransactionHistory({ refresh }: { refresh: boolean }) {
-    const [result, setResult] = useState<TransactionDatabase[]>([]);
+function TransactionHistory() {
+    const { transactions } = useTransactionStore();
 
-    const transactionDb = useTransactionDatabase();
-
-    const list = async () => {
-        const res = await transactionDb.list();
-        setResult(res);
-    }
-
-    useEffect(() => {
-        list();
-        refresh = false;
-    }, [refresh]);
-
-    if (result.length > 0) {
+    if (transactions.length > 0) {
         return (
             <Container title="Transaction History">
                 {
-                    result.map((expense, index) => (
+                    transactions.map((transaction, index) => (
                         <Expense
                             key={index}
-                            title={expense.description}
+                            title={transaction.description}
                             icon={"dollar"}
-                            amount={expense.value}
+                            amount={transaction.value}
                             iconColor={
-                                expense.transaction_type === 1
+                                transaction.transaction_type === 1
                                     ? ACCENT_COLORS.success
-                                    : expense.transaction_type === 2
+                                    : transaction.transaction_type === 2
                                         ? ACCENT_COLORS.danger
-                                        : expense.transaction_type === 3
+                                        : transaction.transaction_type === 3
                                             ? ACCENT_COLORS.warning
                                             : ACCENT_COLORS.info
                             }
