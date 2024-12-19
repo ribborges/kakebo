@@ -7,11 +7,13 @@ import { ACCENT_COLORS } from "@/constants/theme";
 import { Button } from "@/components/Button";
 import { useCategoriesDatabase } from "@/database/useCategoriesDatabase";
 import { categoryColors, categoryIcons } from "@/constants/categoryOptions";
+import { useCategoryStore } from "@/lib/store";
 
 function NewCategory() {
     const [name, setName] = useState('');
     const [icon, setIcon] = useState('');
     const [color, setColor] = useState('');
+    const { addCategory } = useCategoryStore();
 
     const categoryDb = useCategoriesDatabase();
 
@@ -42,6 +44,12 @@ function NewCategory() {
                 icon,
                 color
             });
+            addCategory({
+                id: Number(res.id),
+                name: res.name,
+                icon: res.icon,
+                color: res.color
+            })
 
             Alert.alert('Success', 'Category added successfully with ID: ' + res.id);
         } catch (error) {
