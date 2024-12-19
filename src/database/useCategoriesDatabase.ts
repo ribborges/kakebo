@@ -1,16 +1,10 @@
 import { useSQLiteContext } from "expo-sqlite";
-
-export type CategoryDatabase = {
-    id: number;
-    name: string;
-    icon: string;
-    color: string;
-}
+import { Category } from "@/Types";
 
 export function useCategoriesDatabase() {
     const db = useSQLiteContext();
 
-    async function create(data: Omit<CategoryDatabase, 'id'>) {
+    async function create(data: Omit<Category, 'id'>) {
         const statement = await db.prepareAsync(
             'INSERT INTO expense_categories (name, icon, color) VALUES ($name, $icon, $color)'
         );
@@ -36,7 +30,7 @@ export function useCategoriesDatabase() {
         const query = 'SELECT * FROM expense_categories';
 
         try {
-            const result = await db.getAllAsync<CategoryDatabase>(query);
+            const result = await db.getAllAsync<Category>(query);
 
             return result;
         } catch (error) {

@@ -1,18 +1,10 @@
 import { useSQLiteContext } from "expo-sqlite";
-
-export type TransactionDatabase = {
-    id: number;
-    date: string;
-    value: number;
-    description: string;
-    transaction_type: number;
-    category_id: number | null;
-}
+import { Transaction } from "@/Types";
 
 export function useTransactionDatabase() {
     const db = useSQLiteContext();
 
-    async function create(data: Omit<TransactionDatabase, 'id'>) {
+    async function create(data: Omit<Transaction, 'id'>) {
         const statement = await db.prepareAsync(
             'INSERT INTO transactions (value, date, description, transaction_type, category_id ) VALUES ($value, $date, $description, $transaction_type, $category_id)'
         );
@@ -40,7 +32,7 @@ export function useTransactionDatabase() {
         const query = 'SELECT * FROM transactions';
 
         try {
-            const result = await db.getAllAsync<TransactionDatabase>(query);
+            const result = await db.getAllAsync<Transaction>(query);
 
             return result;
         } catch (error) {

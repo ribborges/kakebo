@@ -35,9 +35,9 @@ export const dbSchema = `
 
     CREATE TABLE IF NOT EXISTS transactions (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        date TEXT NOT NULL,
         value REAL NOT NULL,
         description TEXT NOT NULL,
+        date TEXT NOT NULL,
         transaction_type INTEGER NOT NULL,
         category_id INTEGER,
         FOREIGN KEY (transaction_type) REFERENCES transaction_categories (id),
