@@ -157,6 +157,7 @@ interface ExpenseCategoryProps {
 
 function Categories() {
     const { categories } = useCategoryStore();
+    const { transactions } = useTransactionStore();
 
     return (
         <PanelContainer title="Expense Categories">
@@ -167,7 +168,11 @@ function Categories() {
                         title={expense.name}
                         icon={expense.icon}
                         iconColor={expense.color}
-                        amount={expense.id}
+                        amount={
+                            transactions
+                                .filter((transaction) => transaction.category_id === expense.id)
+                                .reduce((acc, curr) => acc + curr.value, 0)
+                        }
                     />
                 ))
             }

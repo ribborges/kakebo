@@ -5,7 +5,12 @@ import { baseStyles, themeStyles } from "./style";
 import { PanelContainer } from "../Container";
 import { DARK_THEME, LIGHT_THEME } from "@/constants/theme";
 
-function ProfileTag() {
+interface ProfileTagProps {
+    name?: string;
+    pic?: string;
+}
+
+function ProfileTag({ name, pic }: ProfileTagProps) {
     const colorScheme = useColorScheme();
     const themedProfilePic = colorScheme === 'light' ? themeStyles.profilePicLight : themeStyles.profilePicDark;
     const themedProfileName = colorScheme === 'light' ? themeStyles.profileNameLight : themeStyles.profileNameDark;
@@ -16,7 +21,7 @@ function ProfileTag() {
             <View style={[baseStyles.profilePic, themedProfilePic]}>
                 <MaterialCommunityIcons name="cat" size={40} color={themedIcon} />
             </View>
-            <Text style={[baseStyles.profileName, themedProfileName]}>Anna Elisa</Text>
+            <Text style={[baseStyles.profileName, themedProfileName]}>{name || "User"}</Text>
         </PanelContainer>
     );
 }

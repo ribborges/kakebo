@@ -3,24 +3,26 @@ import { PanelContainer } from "@/components/Container";
 import { ACCENT_COLORS } from "@/constants/theme";
 
 import { baseStyles, themeStyles } from "./style";
+import { useTransactionStore } from "@/lib/store";
 
-interface SummaryProps {
-    income: number;
-    expenses: number;
-    savings: number;
-}
-
-export default function Balance(props: SummaryProps) {
+export default function Balance() {
     const colorScheme = useColorScheme();
+    const { transactions } = useTransactionStore();
+
     const themedSummary = colorScheme === 'light' ? themeStyles.summaryContainerLight : themeStyles.summaryContainerDark;
+
+    const income = transactions.filter((transaction) => transaction.transaction_type === 1).reduce((acc, curr) => acc + curr.value, 0);
+    const expenses = transactions.filter((transaction) => transaction.transaction_type === 2).reduce((acc, curr) => acc + curr.value, 0);
+    const savings = transactions.filter((transaction) => transaction.transaction_type === 3).reduce((acc, curr) => acc + curr.value, 0);
+    const balance = income - expenses - savings;
 
     return (
         <PanelContainer title="Balance">
-            <Text style={baseStyles.balanceValue}>${props.income - props.expenses - props.savings}</Text>
+            <Text style={baseStyles.balanceValue}>${balance}</Text>
             <View style={[baseStyles.summaryContainer, themedSummary]}>
-                <SummaryItem title="Income" value={props.income} color={ACCENT_COLORS.success} />
-                <SummaryItem title="Expenses" value={props.expenses} color={ACCENT_COLORS.danger} />
-                <SummaryItem title="Savings" value={props.savings} color={ACCENT_COLORS.warning} />
+                <SummaryItem title="Income" value={income} color={ACCENT_COLORS.success} />
+                <SummaryItem title="Expenses" value={expenses} color={ACCENT_COLORS.danger} />
+                <SummaryItem title="Savings" value={savings} color={ACCENT_COLORS.warning} />
             </View>
         </PanelContainer>
     );

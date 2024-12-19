@@ -37,21 +37,11 @@ export default function MainPage() {
         setRefreshing(true);
         await list();
         setRefreshing(false);
-        /* setTimeout(() => {
-            setRefreshing(false);
-        }, 500); */
     }, []);
-
-    // Dummy data for demonstration
-    const financialData = {
-        income: 5000,
-        expenses: 4000,
-        savings: 500,
-    };
 
     return (
         <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={styles.scrollView}>
-            <Balance income={financialData.income} expenses={financialData.expenses} savings={financialData.savings} />
+            <Balance />
             <Categories />
             <TransactionHistory />
             <View style={styles.spacer} />
