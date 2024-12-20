@@ -1,3 +1,5 @@
+<img src="https://www.richardborges.dev/static/img/projects/kakebo.webp" />
+
 # Kakebo: Your personal finance app 💰
 
 Kakebo is a simple personal finance app inspered by the japanese savings method.
