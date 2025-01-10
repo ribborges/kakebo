@@ -60,6 +60,10 @@ function NewExpense() {
             }
 
             return Alert.alert('Error', 'An unknown error occurred');
+        } finally {
+            setValue('');
+            setDescription('');
+            setSelectedCategory('');
         }
     };
 

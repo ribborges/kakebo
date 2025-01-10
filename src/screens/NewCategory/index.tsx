@@ -58,6 +58,10 @@ function NewCategory() {
             }
 
             return Alert.alert('Error', 'An unknown error occurred');
+        } finally {
+            setName('');
+            setIcon('');
+            setColor('');
         }
     }
 
