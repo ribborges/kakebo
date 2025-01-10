@@ -51,7 +51,7 @@ export default function ProfilePage() {
                 <OptionButton
                     label="About"
                     icon={<FontAwesome name="info" size={22} color={iconColor} />}
-                    onPress={() => Alert.alert('About', 'This is a simple expense tracker app', [{ text: 'GitHub', onPress: () => Linking.openURL('https://github.com/ribborges/kakebo') }, { text: 'OK' }])}
+                    onPress={() => Alert.alert('About', 'This is a simple expense tracker app - v1.0.1', [{ text: 'GitHub', onPress: () => Linking.openURL('https://github.com/ribborges/kakebo') }, { text: 'OK' }])}
                 />
                 <OptionButton
                     label="Reset data"
