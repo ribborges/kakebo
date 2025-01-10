@@ -36,6 +36,12 @@ const baseStyles = StyleSheet.create({
         height: 22,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    selectorContainer: {
+        flex: 1,
+        overflow: "hidden",
+        borderRadius: 99,
+        borderWidth: 1
     }
 });
 
@@ -65,6 +71,28 @@ const themeStyles = StyleSheet.create({
         color: DARK_THEME.color,
         backgroundColor: DARK_THEME.translucentContainerColor,
         borderColor: DARK_THEME.borderColor
+    },
+    selectorContainerLight: {
+        borderColor: LIGHT_THEME.borderColor
+    },
+    selectorContainerDark: {
+        borderColor: DARK_THEME.borderColor
+    },
+    pickerLight: {
+        color: LIGHT_THEME.color,
+        backgroundColor: LIGHT_THEME.translucentContainerColor,
+    },
+    pickerDark: {
+        color: DARK_THEME.color,
+        backgroundColor: DARK_THEME.translucentContainerColor,
+    },
+    pickerItemLight: {
+        color: LIGHT_THEME.color,
+        backgroundColor: LIGHT_THEME.containerColor,
+    },
+    pickerItemDark: {
+        color: DARK_THEME.color,
+        backgroundColor: DARK_THEME.containerColor,
     }
 });
 

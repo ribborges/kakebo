@@ -2,14 +2,16 @@ import React, { useEffect } from 'react';
 import { View, ScrollView, StyleSheet, RefreshControl, Alert } from 'react-native';
 import Balance from '@/components/Balance';
 import { Categories, TransactionHistory } from '@/components/Categories';
-import { useCategoryStore, useTransactionStore } from '@/lib/store'
+import { useCategoryStore, useFilterStore, useTransactionStore } from '@/lib/store'
 import { useCategoriesDatabase } from '@/database/useCategoriesDatabase';
 import { useTransactionDatabase } from '@/database/useTransactionDatabase';
+import DateSelector from '@/components/DateSelector';
 
 export default function MainPage() {
     const [refreshing, setRefreshing] = React.useState(false);
     const { setCategories } = useCategoryStore();
     const { setTransactions } = useTransactionStore();
+    const { dateFilter } = useFilterStore();
 
     const categoriesDb = useCategoriesDatabase();
     const transactionsDb = useTransactionDatabase();
@@ -19,7 +21,17 @@ export default function MainPage() {
             const categories = await categoriesDb.list();
             const transactions = await transactionsDb.list();
             if (categories) setCategories(categories);
-            if (transactions) setTransactions(transactions);
+            if (transactions) {
+                const filteredTransactions = transactions.filter(transaction => {
+                    const transactionDate = new Date(transaction.date);
+                    const month = dateFilter.month;
+                    const year = dateFilter.year;
+
+                    return (transactionDate.getMonth() + 1) == month && transactionDate.getFullYear() == year;
+                });
+
+                setTransactions(filteredTransactions);
+            }
         } catch (error) {
             if (error instanceof Error) {
                 Alert.alert('Error', error.message);
@@ -31,7 +43,7 @@ export default function MainPage() {
 
     useEffect(() => {
         list();
-    }, []);
+    }, [dateFilter]);
 
     const onRefresh = React.useCallback(async () => {
         setRefreshing(true);
@@ -41,6 +53,7 @@ export default function MainPage() {
 
     return (
         <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={styles.scrollView}>
+            <DateSelector />
             <Balance />
             <Categories />
             <TransactionHistory />
