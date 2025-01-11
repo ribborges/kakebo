@@ -70,13 +70,12 @@ function TransactionHistory() {
 
 function Expense({ title, icon, iconColor, amount }: ExpenseCategoryProps) {
     const colorScheme = useColorScheme();
-    const themedCategory = colorScheme === 'light' ? themeStyles.categoryLight : themeStyles.categoryDark;
     const themedIcon = colorScheme === 'light' ? themeStyles.categoryIconLight : themeStyles.categoryIconDark;
     const themedTitle = colorScheme === 'light' ? themeStyles.categoryTitleLight : themeStyles.categoryTitleDark;
     const themedAmount = colorScheme === 'light' ? themeStyles.categoryAmountLight : themeStyles.categoryAmountDark;
 
     return (
-        <View style={[baseStyles.category, themedCategory]}>
+        <View style={baseStyles.category}>
             <View style={[baseStyles.categoryIcon, themedIcon]}>
                 <FontAwesome name={icon as any} size={24} color={iconColor || ACCENT_COLORS.seccondary} />
             </View>

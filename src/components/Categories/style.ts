@@ -5,8 +5,7 @@ const baseStyles = StyleSheet.create({
     category: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingVertical: 16,
-        borderTopWidth: 1,
+        paddingVertical: 16
     },
     categoryIcon: {
         width: 45,
@@ -34,12 +33,6 @@ const baseStyles = StyleSheet.create({
 });
 
 const themeStyles = StyleSheet.create({
-    categoryLight: {
-        borderTopColor: LIGHT_THEME.borderColor
-    },
-    categoryDark: {
-        borderTopColor: DARK_THEME.borderColor
-    },
     categoryIconLight: {
         backgroundColor: LIGHT_THEME.translucentContainerColor,
         borderColor: LIGHT_THEME.borderColor
