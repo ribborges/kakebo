@@ -1,5 +1,5 @@
 import { View, StyleSheet, useColorScheme, Alert, Linking } from "react-native";
-import { OptionButton } from "@/components/Button";
+import { OptionButton } from "@/components/Input";
 import { PanelContainer } from "@/components/Container";
 import { ProfileTag } from "@/components/ProfileTag";
 import { FontAwesome } from "@expo/vector-icons";
@@ -30,10 +30,10 @@ export default function ProfilePage() {
     };
 
     return (
-        <View style={styles.profileContainer}>
+        <View className="flex-1">
             <ProfileTag />
 
-            <PanelContainer style={{ padding: 5, gap: 10 }}>
+            <PanelContainer className="p-1 g-2">
                 {/*
                     <OptionButton
                         label="Settings"
@@ -62,9 +62,3 @@ export default function ProfilePage() {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    profileContainer: {
-        flex: 1
-    }
-});
