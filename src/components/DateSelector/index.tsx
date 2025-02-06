@@ -24,7 +24,7 @@ export default function DateSelector() {
     }
 
     return (
-        <PanelContainer style={{ flexDirection: 'row', gap: 5 }}>
+        <PanelContainer className="flex-row gap-2">
             <Selector
                 placeholder="Month"
                 value={month}
