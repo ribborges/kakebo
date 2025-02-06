@@ -1,4 +1,4 @@
-import { Image, View, useColorScheme } from "react-native";
+import { Image, View } from "react-native";
 
 export default function Header() {
     return (
