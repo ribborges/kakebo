@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Alert, Text } from "react-native";
-import { PanelContainer } from "@/components/Container";
-import { OptionSelector, TextField } from "@/components/Input";
+import { Alert } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+
+import { PanelContainer } from "@/components/Container";
+import { OptionSelector, TextField, Button } from "@/components/Input";
 import { ACCENT_COLORS } from "@/constants/theme";
-import { Button } from "@/components/Button";
-import { useCategoriesDatabase } from "@/database/useCategoriesDatabase";
 import { categoryColors, categoryIcons } from "@/constants/categoryOptions";
 import { useCategoryStore } from "@/lib/store";
+import { useCategoriesDatabase } from "@/database/useCategoriesDatabase";
 
 function NewCategory() {
     const [name, setName] = useState('');

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Alert } from "react-native";
-import { Button } from "@/components/Button";
-import { PanelContainer } from "@/components/Container";
-import { TextField, OptionSelector } from "@/components/Input";
 import { FontAwesome } from "@expo/vector-icons";
+
+import { PanelContainer } from "@/components/Container";
+import { TextField, OptionSelector, Button } from "@/components/Input";
 import { useTransactionDatabase } from "@/database/useTransactionDatabase";
 import { useCategoriesDatabase } from "@/database/useCategoriesDatabase";
 import { Category } from "@/Types";
