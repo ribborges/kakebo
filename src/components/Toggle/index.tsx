@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { View, Text, ScrollView, StyleSheet, Pressable, PressableProps, useColorScheme } from "react-native";
+import { View, Text, ScrollView, Pressable, PressableProps } from "react-native";
 
-import { baseStyles, themeStyles } from "./style";
+import clsx from "clsx";
 
 interface toggleButtonProps extends PressableProps {
     id?: string,
@@ -18,13 +18,13 @@ interface toggleContainerProps {
 }
 
 export function ToggleButton(props: toggleButtonProps) {
-    const colorScheme = useColorScheme();
-    const themedLabel = colorScheme === 'dark' ? themeStyles.labelDark : themeStyles.labelLight;
-
     return (
-        <Pressable {...props} style={baseStyles.toggleButton}>
-            <Text style={[baseStyles.label, themedLabel]}>{props.label}</Text>
-            <View style={props.active ? baseStyles.toggleBtnUndeline : baseStyles.toggleBtnUndelineDeactive}></View>
+        <Pressable {...props} className="p-2">
+            <Text className="text-base text-black dark:text-white">{props.label}</Text>
+            <View className={clsx(
+                "h-1 w-full mt-1 rounded-full",
+                props.active ? "bg-yellow-500" : "bg-transparent"
+            )}></View>
         </Pressable>
     );
 }
@@ -33,8 +33,8 @@ export function Toggle(props: toggleContainerProps) {
     const [active, setActive] = useState(0);
 
     return (
-        <View style={baseStyles.toggleContainer}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={baseStyles.toggleInput}>
+        <View className="w-full items-center justify-center">
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerClassName="flex-row gap-2">
                 {props.items.map((item, index) => {
                     return (
                         <ToggleButton
@@ -46,7 +46,7 @@ export function Toggle(props: toggleContainerProps) {
                     )
                 })}
             </ScrollView>
-            <ScrollView style={baseStyles.content}>
+            <ScrollView className="w-full">
                 {props.items[active].content}
             </ScrollView>
         </View>
