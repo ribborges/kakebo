@@ -4,19 +4,21 @@ import React from 'react';
 import { Foundation, Octicons } from '@expo/vector-icons';
 
 import TabBar from '@/components/TabBar';
-import { DARK_THEME, LIGHT_THEME } from '@/constants/theme';
+import Header from '@/components/Header';
 
 export default function TabLayout() {
     const colorScheme = useColorScheme();
-    const iconColor = colorScheme === 'light' ? LIGHT_THEME.color : DARK_THEME.color;
-    const bkColor = colorScheme === 'light' ? LIGHT_THEME.backgroundColor : DARK_THEME.backgroundColor;
 
     return (
         <Tabs
             screenOptions={{
-                headerShown: false,
+                header: ({ navigation, route, options }) => {
+                    return (
+                        <Header />
+                    );
+                },
                 sceneStyle: {
-                    backgroundColor: bkColor
+                    backgroundColor: colorScheme === 'light' ? 'white' : 'black',
                 }
             }}
             tabBar={props => <TabBar {...props} />}
@@ -25,9 +27,8 @@ export default function TabLayout() {
                 name="index"
                 options={{
                     title: 'Home',
-                    tabBarIcon: ({ focused }) => (
-                        focused ? <Foundation name={'home'} size={18} color={DARK_THEME.color} />
-                            : <Octicons name={'home'} size={16} color={iconColor} />
+                    tabBarIcon: () => (
+                        <Foundation name={'home'} size={22} />
                     ),
                 }}
             />
@@ -36,9 +37,8 @@ export default function TabLayout() {
                 name="add"
                 options={{
                     title: 'Add',
-                    tabBarIcon: ({ focused }) => (
-                        focused ? <Foundation name={'plus'} size={16} color={DARK_THEME.color} />
-                            : <Octicons name={'plus'} size={16} color={iconColor} />
+                    tabBarIcon: () => (
+                        <Foundation name={'plus'} size={22} />
                     ),
                 }}
             />
@@ -47,9 +47,8 @@ export default function TabLayout() {
                 name="profile"
                 options={{
                     title: 'Profile',
-                    tabBarIcon: ({ focused }) => (
-                        focused ? <Octicons name={'person-fill'} size={16} color={DARK_THEME.color} />
-                            : <Octicons name={'person'} size={16} color={iconColor} />
+                    tabBarIcon: () => (
+                        <Octicons name={'person-fill'} size={22} />
                     ),
                 }}
             />

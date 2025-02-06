@@ -1,32 +1,31 @@
 import { useColorScheme } from "react-native";
 import { Stack } from "expo-router";
 import { SQLiteProvider } from "expo-sqlite";
-import Header from "@/components/Header";
-import BackBtn from "@/components/BackBtn";
-import { DARK_THEME, LIGHT_THEME } from "@/constants/theme";
+import * as SystemUI from 'expo-system-ui';
+
 import { dbName, initializeDatabase } from "@/database/db";
+
+import '@/styles/global.css';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  SystemUI.setBackgroundColorAsync(colorScheme === 'light' ? 'white' : 'black');
 
   return (
     <SQLiteProvider databaseName={dbName} onInit={initializeDatabase}>
       <Stack
         screenOptions={{
-          statusBarStyle: colorScheme === "light" ? "dark" : "light",
-          statusBarBackgroundColor: colorScheme === "light" ? LIGHT_THEME.containerColor : DARK_THEME.containerColor,
-          header: ({ navigation, route, options, back }) => {
-            return (
-              <Header
-                leftButton={
-                  back ? <BackBtn onPress={navigation.goBack} /> : undefined
-                }
-              />
-            );
-          },
+          animation: "slide_from_right",
+          headerStyle: { backgroundColor: colorScheme === 'light' ? 'white' : 'black' },
+          headerTitleStyle: { color: colorScheme === 'light' ? 'black' : 'white' },
+          headerTintColor: colorScheme === 'light' ? 'black' : 'white',
+          headerShadowVisible: false,
+          contentStyle: { backgroundColor: colorScheme === 'light' ? 'white' : 'black' },
+          statusBarStyle: colorScheme === 'light' ? 'dark' : 'light',
+          statusBarBackgroundColor: colorScheme === 'light' ? 'white' : 'black'
         }}
       >
-        <Stack.Screen name="(tabs)" />
+        <Stack.Screen options={{ headerShown: false }} name="(tabs)" />
       </Stack>
     </SQLiteProvider>
   );
