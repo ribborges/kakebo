@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
-import { View, ScrollView, StyleSheet, RefreshControl, Alert, Text } from 'react-native';
+import { ScrollView, RefreshControl, Alert } from 'react-native';
+
 import Balance from '@/components/Balance';
 import { Categories, TransactionHistory } from '@/components/Categories';
 import { useCategoryStore, useFilterStore, useTransactionStore } from '@/lib/store'
 import { useCategoriesDatabase } from '@/database/useCategoriesDatabase';
 import { useTransactionDatabase } from '@/database/useTransactionDatabase';
 import DateSelector from '@/components/DateSelector';
+import { Blanckspace } from '@/components/Separator';
 
 export default function MainPage() {
     const [refreshing, setRefreshing] = React.useState(false);
@@ -56,21 +58,12 @@ export default function MainPage() {
     }, [list]);
 
     return (
-        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={styles.scrollView}>
+        <ScrollView className="flex-1" refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
             <DateSelector />
             <Balance />
             <Categories />
             <TransactionHistory />
-            <View style={styles.spacer} />
+            <Blanckspace space={80} />
         </ScrollView>
     );
 }
-
-const styles = StyleSheet.create({
-    scrollView: {
-        flex: 1,
-    },
-    spacer: {
-        height: 80
-    }
-});

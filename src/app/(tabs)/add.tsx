@@ -1,4 +1,5 @@
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
+
 import { Toggle } from "@/components/Toggle";
 import NewExpense from "@/screens/NewExpense";
 import NewCategory from "@/screens/NewCategory";
@@ -7,7 +8,7 @@ import NewSaving from "@/screens/NewSaving";
 
 export default function AddPage() {
     return (
-        <View style={styles.scrollView}>
+        <View className="flex-1">
             <Toggle id="add" items={[
                 {
                     label: "Income",
@@ -26,9 +27,3 @@ export default function AddPage() {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    scrollView: {
-        flex: 1
-    }
-});
