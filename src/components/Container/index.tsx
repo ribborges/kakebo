@@ -1,33 +1,41 @@
-import { View, Text, useColorScheme, StyleProp, ViewStyle, StyleSheet } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
+import clsx from 'clsx';
 
-import { baseStyles, themeStyles } from './style';
+import Title from '@/components/Title';
+import { Spacer } from '../Separator';
 
 interface ContainerProps {
     title?: string;
-    style?: StyleProp<ViewStyle>;
+    className?: string;
     children?: React.ReactNode;
 }
 
-function Container({ title, style, children }: ContainerProps) {
-    const colorScheme = useColorScheme();
-    const themedTitle = colorScheme === 'light' ? themeStyles.titleLight : themeStyles.titleDark;
-
+function Container({ title, className, children }: ContainerProps) {
     return (
-        <View style={StyleSheet.flatten([baseStyles.container, style])}>
-            {title ? <Text style={[baseStyles.title, themedTitle]}>{title}</Text> : <></>}
+        <View className={clsx(
+            "m-2 p-2",
+            className
+        )}>
+            {title ? <Title>{title}</Title> : <></>}
+            {title ? <Spacer space={15} /> : <></>}
             {children}
         </View>
     );
 }
 
-function PanelContainer({ title, style, children }: ContainerProps) {
-    const colorScheme = useColorScheme();
-    const themedContainer = colorScheme === 'light' ? themeStyles.containerLight : themeStyles.containerDark;
-    const themedTitle = colorScheme === 'light' ? themeStyles.titleLight : themeStyles.titleDark;
-
+function PanelContainer({ title, className, children }: ContainerProps) {
     return (
-        <View style={StyleSheet.flatten([[baseStyles.containerPanel, themedContainer], style])}>
-            {title ? <Text style={[baseStyles.title, themedTitle]}>{title}</Text> : <></>}
+        <View className={clsx(
+            `
+                m-2 p-4
+                bg-zinc-100 bg-opacity-50 dark:bg-zinc-900 dark:bg-opacity-50
+                border border-solid rounded-3xl
+                border-zinc-200 border-opacity-50 dark:border-zinc-800 dark:border-opacity-50
+            `, className
+        )}>
+            {title ? <Title>{title}</Title> : <></>}
+            {title ? <Spacer space={15} /> : <></>}
             {children}
         </View>
     );
