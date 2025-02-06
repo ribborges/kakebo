@@ -1,15 +1,12 @@
-import { View, Text, StyleSheet, useColorScheme } from "react-native";
-import { PanelContainer } from "@/components/Container";
-import { ACCENT_COLORS } from "@/constants/theme";
+import { View, Text } from "react-native";
+import clsx from "clsx";
 
-import { baseStyles, themeStyles } from "./style";
+import { PanelContainer } from "@/components/Container";
+import { Spacer } from "@/components/Separator";
 import { useTransactionStore } from "@/lib/store";
 
 export default function Balance() {
-    const colorScheme = useColorScheme();
     const { transactions } = useTransactionStore();
-
-    const themedSummary = colorScheme === 'light' ? themeStyles.summaryContainerLight : themeStyles.summaryContainerDark;
 
     const income = transactions.filter((transaction) => transaction.transaction_type === 1).reduce((acc, curr) => acc + curr.value, 0);
     const expenses = transactions.filter((transaction) => transaction.transaction_type === 2).reduce((acc, curr) => acc + curr.value, 0);
@@ -17,25 +14,26 @@ export default function Balance() {
     const balance = income - expenses - savings;
 
     return (
-        <PanelContainer title="Balance">
-            <Text style={baseStyles.balanceValue}>${balance}</Text>
-            <View style={[baseStyles.summaryContainer, themedSummary]}>
-                <SummaryItem title="Income" value={income} color={ACCENT_COLORS.success} />
-                <SummaryItem title="Expenses" value={expenses} color={ACCENT_COLORS.danger} />
-                <SummaryItem title="Savings" value={savings} color={ACCENT_COLORS.warning} />
+        <PanelContainer className="gap-1" title="Balance">
+            <Text className="text-2xl text-center font-bold text-yellow-800">${balance}</Text>
+            <Spacer space={15} />
+            <View className="flex-row justify-around">
+                <SummaryItem title="Income" value={income} valueClassName="text-green-500" />
+                <SummaryItem title="Expenses" value={expenses} valueClassName="text-red-500" />
+                <SummaryItem title="Savings" value={savings} valueClassName="text-yellow-500" />
             </View>
         </PanelContainer>
     );
 }
 
-function SummaryItem({ title, value, color }: { title: string, value: number, color?: string }) {
-    const colorScheme = useColorScheme();
-    const summaryLabel = colorScheme === 'light' ? themeStyles.summaryLabelLight : themeStyles.summaryLabelDark;
-
+function SummaryItem({ title, value, valueClassName }: { title: string, value: number, valueClassName?: string }) {
     return (
-        <View style={baseStyles.summaryItem}>
-            <Text style={[baseStyles.summaryLabel, summaryLabel]}>{title}</Text>
-            <Text style={StyleSheet.flatten([baseStyles.summaryValue, color ? { color: color } : {}])}>${value}</Text>
+        <View className="items-center flex-row gap-1">
+            <Text className="text-sm text-zinc-700 dark:text-zinc-300">{title}</Text>
+            <Text className={clsx(
+                "text-sm font-bold",
+                valueClassName
+            )}>${value}</Text>
         </View>
     );
 }
