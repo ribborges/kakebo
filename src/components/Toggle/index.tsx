@@ -22,7 +22,7 @@ export function ToggleButton(props: toggleButtonProps) {
         <Pressable {...props} className="p-2">
             <Text className="text-base text-black dark:text-white">{props.label}</Text>
             <View className={clsx(
-                "h-1 w-full mt-1 rounded-full",
+                "h-1 w-full mt-1 rounded-xl",
                 props.active ? "bg-yellow-500" : "bg-transparent"
             )}></View>
         </Pressable>
