@@ -11,9 +11,9 @@ export default function OptionButton({ label, icon, ...props }: OptionButtonProp
         <TouchableOpacity className="p-4 flex-row gap-2" {...props}>
             {
                 icon ? (
-                    <View className="h-6 w-6 justify-center items-center">
+                    <Text className="h-6 w-6 text-center text-zinc-700 dark:text-zinc-300">
                         {icon}
-                    </View>
+                    </Text>
                 ) : null
             }
             {
