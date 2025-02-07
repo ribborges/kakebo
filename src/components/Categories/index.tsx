@@ -1,10 +1,8 @@
-import { View, Text, useColorScheme } from 'react-native';
+import { View, Text } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+
 import { Container, PanelContainer } from '@/components/Container';
 import { useCategoryStore, useTransactionStore } from '@/lib/store';
-import { ACCENT_COLORS } from '@/constants/theme';
-
-import { baseStyles, themeStyles } from './style';
 
 interface ExpenseCategoryProps {
     title: string;
@@ -19,21 +17,23 @@ function Categories() {
 
     return (
         <PanelContainer title="Expense Categories">
-            {
-                categories.map((expense, index) => (
-                    <Expense
-                        key={index}
-                        title={expense.name}
-                        icon={expense.icon}
-                        iconColor={expense.color}
-                        amount={
-                            transactions
-                                .filter((transaction) => transaction.category_id === expense.id)
-                                .reduce((acc, curr) => acc + curr.value, 0)
-                        }
-                    />
-                ))
-            }
+            <View className="gap-8 pt-2">
+                {
+                    categories.map((expense, index) => (
+                        <Expense
+                            key={index}
+                            title={expense.name}
+                            icon={expense.icon}
+                            iconColor={expense.color}
+                            amount={
+                                transactions
+                                    .filter((transaction) => transaction.category_id === expense.id)
+                                    .reduce((acc, curr) => acc + curr.value, 0)
+                            }
+                        />
+                    ))
+                }
+            </View>
         </PanelContainer>
     );
 }
@@ -44,44 +44,41 @@ function TransactionHistory() {
     if (transactions.length > 0) {
         return (
             <Container title="Transaction History">
-                {
-                    transactions.map((transaction, index) => (
-                        <Expense
-                            key={index}
-                            title={transaction.description}
-                            icon={"dollar"}
-                            amount={transaction.value}
-                            iconColor={
-                                transaction.transaction_type === 1
-                                    ? ACCENT_COLORS.success
-                                    : transaction.transaction_type === 2
-                                        ? ACCENT_COLORS.danger
-                                        : transaction.transaction_type === 3
-                                            ? ACCENT_COLORS.warning
-                                            : ACCENT_COLORS.info
-                            }
-                        />
-                    ))
-                }
+                <View className="gap-8 pt-2">
+                    {
+                        transactions.map((transaction, index) => (
+                            <Expense
+                                key={index}
+                                title={transaction.description}
+                                icon={"dollar"}
+                                amount={transaction.value}
+                                iconColor={
+                                    transaction.transaction_type === 1
+                                        ? "#22c55e"
+                                        : transaction.transaction_type === 2
+                                            ? "#ef4444"
+                                            : transaction.transaction_type === 3
+                                                ? "#eab308"
+                                                : "#3b82f6"
+                                }
+                            />
+                        ))
+                    }
+                </View>
             </Container>
         );
     } else { return null; }
 }
 
 function Expense({ title, icon, iconColor, amount }: ExpenseCategoryProps) {
-    const colorScheme = useColorScheme();
-    const themedIcon = colorScheme === 'light' ? themeStyles.categoryIconLight : themeStyles.categoryIconDark;
-    const themedTitle = colorScheme === 'light' ? themeStyles.categoryTitleLight : themeStyles.categoryTitleDark;
-    const themedAmount = colorScheme === 'light' ? themeStyles.categoryAmountLight : themeStyles.categoryAmountDark;
-
     return (
-        <View style={baseStyles.category}>
-            <View style={[baseStyles.categoryIcon, themedIcon]}>
-                <FontAwesome name={icon as any} size={24} color={iconColor || ACCENT_COLORS.seccondary} />
+        <View className="flex-row items-center gap-4">
+            <View className="h-12 w-12 items-center justify-center">
+                <FontAwesome name={icon as any} size={24} color={iconColor || "#854d0e"} />
             </View>
-            <View style={baseStyles.categoryDetails}>
-                <Text style={[baseStyles.categoryTitle, themedTitle]}>{title}</Text>
-                <Text style={[baseStyles.categoryAmount, themedAmount]}>${amount}</Text>
+            <View className="flex-1 gap-1">
+                <Text className="text-base font-black text-black dark:text-white">{title}</Text>
+                <Text className="text-sm text-zinc-700 dark:text-zinc-300">${amount}</Text>
             </View>
         </View>
     );
