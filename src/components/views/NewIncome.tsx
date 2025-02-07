@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Alert } from "react-native";
+import { FontAwesome6 } from "@expo/vector-icons";
 
 import { PanelContainer } from "@/components/Container";
 import { InputText, Button } from "@/components/Input";
@@ -7,25 +8,35 @@ import { useTransactionDatabase } from "@/database/useTransactionDatabase";
 import { useTransactionStore } from "@/lib/store";
 
 function NewIncome() {
-  const [value, setValue] = useState('');
-  const [description, setDescription] = useState('');
-  const transactionDb = useTransactionDatabase();
+  const [incomeData, setIncomeData] = useState({
+    value: '',
+    description: ''
+  });
+
   const { addTransaction } = useTransactionStore();
+  const transactionDb = useTransactionDatabase();
+
+  const onChange = (value: string, name: string) => {
+    setIncomeData((prevState: any) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  }
 
   const handleSave = async () => {
     try {
-      if (value === '' || description === '') {
+      if (incomeData.value === '' || incomeData.description === '') {
         throw new Error('All fields are required');
       }
 
-      if (isNaN(parseFloat(value))) {
+      if (isNaN(parseFloat(incomeData.value))) {
         throw new Error('Value must be a number');
       }
 
       const res = await transactionDb.create({
-        value: parseFloat(value),
+        value: parseFloat(incomeData.value),
         date: new Date().toISOString(),
-        description,
+        description: incomeData.description,
         transaction_type: 1,
         category_id: null
       });
@@ -46,15 +57,34 @@ function NewIncome() {
 
       return Alert.alert('Error', 'An unknown error occurred');
     } finally {
-      setValue('');
-      setDescription('');
+      setIncomeData({
+        value: '',
+        description: ''
+      });
     }
   };
 
   return (
     <PanelContainer>
-      <InputText label="Value" onChange={setValue} value={value} keyboardType="number-pad" />
-      <InputText label="Description" onChange={setDescription} value={description} />
+      <InputText
+        id='value'
+        name='value'
+        value={incomeData.value}
+        onChange={onChange}
+        icon={<FontAwesome6 name="coins" />}
+        label='Value'
+        placeholder="00.00"
+        keyboardType="number-pad"
+      />
+      <InputText
+        id='description'
+        name='description'
+        value={incomeData.description}
+        onChange={onChange}
+        icon={<FontAwesome6 name="file-text" />}
+        label='Description'
+        placeholder="Sallary"
+      />
       <Button label="Save" onPress={() => handleSave()} />
     </PanelContainer>
   );

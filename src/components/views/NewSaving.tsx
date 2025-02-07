@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Alert } from "react-native";
+import { FontAwesome6 } from "@expo/vector-icons";
 
 import { PanelContainer } from "@/components/Container";
 import { InputText, Button } from "@/components/Input";
@@ -7,26 +8,35 @@ import { useTransactionDatabase } from "@/database/useTransactionDatabase";
 import { useTransactionStore } from "@/lib/store";
 
 function NewSaving() {
-    const [value, setValue] = useState('');
-    const [description, setDescription] = useState('');
-    const { addTransaction } = useTransactionStore();
+    const [savingData, setSavingData] = useState({
+        value: '',
+        description: ''
+    });
 
+    const { addTransaction } = useTransactionStore();
     const transactionDb = useTransactionDatabase();
+
+    const onChange = (value: string, name: string) => {
+        setSavingData((prevState: any) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    }
 
     const handleSave = async () => {
         try {
-            if (value === '' || description === '') {
+            if (savingData.value === '' || savingData.description === '') {
                 throw new Error('All fields are required');
             }
 
-            if (isNaN(parseFloat(value))) {
+            if (isNaN(parseFloat(savingData.value))) {
                 throw new Error('Value must be a number');
             }
 
             const res = await transactionDb.create({
-                value: parseFloat(value),
+                value: parseFloat(savingData.value),
                 date: new Date().toISOString(),
-                description,
+                description: savingData.description,
                 transaction_type: 3,
                 category_id: null
             });
@@ -47,15 +57,34 @@ function NewSaving() {
 
             return Alert.alert('Error', 'An unknown error occurred');
         } finally {
-            setValue('');
-            setDescription('');
+            setSavingData({
+                value: '',
+                description: ''
+            });
         }
     };
 
     return (
         <PanelContainer>
-            <InputText label="Value" onChange={setValue} value={value} keyboardType="number-pad" />
-            <InputText label="Description" onChange={setDescription} value={description} />
+            <InputText
+                id='value'
+                name='value'
+                value={savingData.value}
+                onChange={onChange}
+                icon={<FontAwesome6 name="coins" />}
+                label='Value'
+                placeholder="00.00"
+                keyboardType="number-pad"
+            />
+            <InputText
+                id='description'
+                name='description'
+                value={savingData.description}
+                onChange={onChange}
+                icon={<FontAwesome6 name="file-text" />}
+                label='Description'
+                placeholder="For the future"
+            />
             <Button label="Save" onPress={() => handleSave()} />
         </PanelContainer>
     );
