@@ -27,7 +27,7 @@ export default function InputGroup(props: InputGroupProps) {
                 props.className || "",
                 `
                 m-1
-                flex-row flex-nowrap items-center
+                flex-row flex-nowrap
                 rounded-xl border-2 border-solid border-zinc-400 dark:border-zinc-700
                 hover:shadow-2xl focus:shadow-2xl
                 hover:shadow-zinc-950/20 focus:shadow-zinc-950/20
@@ -37,7 +37,7 @@ export default function InputGroup(props: InputGroupProps) {
             )}>
                 {
                     (props.icon || props.label) &&
-                    <View className="gap-2 items-center p-4">
+                    <View className="gap-2 flex-row items-center p-4">
                         {props.icon && <Text className="text-zinc-950 dark:text-zinc-100">{props.icon}</Text>}
                         {
                             props.label && props.labelInside ?
