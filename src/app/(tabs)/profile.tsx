@@ -1,19 +1,17 @@
-import { View, StyleSheet, useColorScheme, Alert, Linking } from "react-native";
+import { View, Alert, Linking } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+
 import { OptionButton } from "@/components/Input";
 import { PanelContainer } from "@/components/Container";
-import { ProfileTag } from "@/components/ProfileTag";
-import { FontAwesome } from "@expo/vector-icons";
-import { DARK_THEME, LIGHT_THEME } from "@/constants/theme";
+import { UserTag } from "@/components/User";
 import { useResetData } from "@/database/useResetData";
 import { useCategoryStore, useTransactionStore } from "@/lib/store";
 import { useCategoriesDatabase } from "@/database/useCategoriesDatabase";
+import { Spacer } from "@/components/Separator";
 
 export default function ProfilePage() {
-    const colorScheme = useColorScheme();
     const { setTransactions } = useTransactionStore();
     const { setCategories } = useCategoryStore();
-
-    const iconColor = colorScheme === 'dark' ? DARK_THEME.color : LIGHT_THEME.color;
 
     const reset = useResetData();
     const categoriesDb = useCategoriesDatabase();
@@ -30,32 +28,32 @@ export default function ProfilePage() {
     };
 
     return (
-        <View className="flex-1">
-            <ProfileTag />
-
-            <PanelContainer className="p-1 g-2">
+        <View className="p-4 flex-1">
+            <UserTag />
+            <Spacer space={30} />
+            <PanelContainer className="g-2">
                 {/*
                     <OptionButton
                         label="Settings"
-                        icon={<FontAwesome name="gear" size={22} color={iconColor} />}
+                        icon={<FontAwesome name="gear" size={22} />}
                         onPress={() => Alert.alert('Settings')}
                     />
                 */}
                 {/*
                     <OptionButton
                         label="Financial history"
-                        icon={<FontAwesome name="history" size={22} color={iconColor} />}
+                        icon={<FontAwesome name="history" size={22} />}
                         onPress={() => Alert.alert('Financial history')}
                     />
                 */}
                 <OptionButton
                     label="About"
-                    icon={<FontAwesome name="info" size={22} color={iconColor} />}
+                    icon={<FontAwesome name="info" size={22} />}
                     onPress={() => Alert.alert('About', 'This is a simple expense tracker app - v1.0.2', [{ text: 'GitHub', onPress: () => Linking.openURL('https://github.com/ribborges/kakebo') }, { text: 'OK' }])}
                 />
                 <OptionButton
                     label="Reset data"
-                    icon={<FontAwesome name="trash" size={22} color={iconColor} />}
+                    icon={<FontAwesome name="trash" size={22} />}
                     onPress={resetData}
                 />
             </PanelContainer>
