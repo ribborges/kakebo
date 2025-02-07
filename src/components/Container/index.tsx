@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import clsx from 'clsx';
 
 import Title from '@/components/Title';
-import { Spacer } from '../Separator';
+import { Spacer } from '@/components/Separator';
 
 interface ContainerProps {
     title?: string;
