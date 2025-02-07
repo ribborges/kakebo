@@ -1,10 +1,10 @@
 import { View } from "react-native";
 
 import { Toggle } from "@/components/Toggle";
-import NewExpense from "@/screens/NewExpense";
-import NewCategory from "@/screens/NewCategory";
-import NewIncome from "@/screens/NewIncome";
-import NewSaving from "@/screens/NewSaving";
+import NewExpense from "@/components/screens/NewExpense";
+import NewCategory from "@/components/screens/NewCategory";
+import NewIncome from "@/components/screens/NewIncome";
+import NewSaving from "@/components/screens/NewSaving";
 
 export default function AddPage() {
     return (
