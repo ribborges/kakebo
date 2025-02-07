@@ -1,8 +1,9 @@
 import { useState } from "react";
 
-import Selector from "@/components/Input/Selector";
+import { InputSelector } from "@/components/Input";
 import { PanelContainer } from "@/components/Container";
 import { useFilterStore } from "@/lib/store";
+import { Foundation } from "@expo/vector-icons";
 
 export default function DateSelector() {
     const [month, setMonth] = useState(new Date().getMonth() + 1);
@@ -25,7 +26,7 @@ export default function DateSelector() {
 
     return (
         <PanelContainer className="flex-row gap-2">
-            <Selector
+            <InputSelector
                 placeholder="Month"
                 value={month}
                 onChange={handleMonthChange}
@@ -67,7 +68,7 @@ export default function DateSelector() {
                     value: 12
                 }]}
             />
-            <Selector
+            <InputSelector
                 placeholder="Year"
                 value={year}
                 onChange={handleYearChange}
