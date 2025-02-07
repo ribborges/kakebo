@@ -21,7 +21,9 @@ function TabBarButton({ isFocused, label, icon, ...props }: tabBarBtnProps) {
                 isFocused ? "bg-yellow-500 dark:bg-yellow-800" : "bg-transparent"
             )}
         >
-            <Text className={isFocused ? "text-yellow-800 dark:text-yellow-500" : "text-zinc-700 dark:text-zinc-300"}>{icon({ focused: isFocused })}</Text>
+            <Text className={isFocused ? "text-yellow-800 dark:text-yellow-500" : "text-zinc-700 dark:text-zinc-300"}>
+                {icon({ focused: isFocused })}
+            </Text>
         </Pressable>
     )
 }
