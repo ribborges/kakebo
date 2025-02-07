@@ -1,19 +1,23 @@
-import { ReactNode, useState } from "react";
-import { StyleSheet, Text, useColorScheme, View, ScrollView, ScrollViewProps, TouchableOpacity, StyleProp, TextStyle } from "react-native";
+import { ReactNode } from "react";
+import { Text, View, ScrollView, TouchableOpacity } from "react-native";
+import clsx from "clsx";
 
-import { baseStyles, themeStyles } from "./style";
+import InputGroup from "./InputGroup";
 
-interface OptionSelectorProps extends ScrollViewProps {
+interface OptionSelectorProps {
+    icon?: ReactNode;
     label?: string;
-    labelStyle?: StyleProp<TextStyle>;
+    id?: string;
+    name?: string;
     options?: {
         label?: string;
         value: string;
         children?: ReactNode;
     }[];
-    selectedOption?: string[] | string;
-    onlyOne?: boolean;
-    onChange?: (value: string[] | string) => void
+    value?: string;
+    onChange?: (value: string, name: string) => void,
+    horizontal?: boolean;
+    showsHorizontalScrollIndicator?: boolean;
 }
 
 interface OptionItemProps {
@@ -25,51 +29,31 @@ interface OptionItemProps {
 }
 
 function OptionSelector({
+    icon,
+    id,
+    name,
     label,
     options,
-    labelStyle,
-    selectedOption,
-    horizontal = true,
-    showsHorizontalScrollIndicator = false,
-    onlyOne = false,
+    value,
     onChange,
-    ...props
+    horizontal = true,
+    showsHorizontalScrollIndicator = false
 }: OptionSelectorProps) {
-    const [selected, setSelected] = useState<string[] | string>(selectedOption || (onlyOne ? '' : []));
+    const handleOptionSelect = (newValue: string) => {
+        value = newValue;
 
-    const colorScheme = useColorScheme();
-    const themedLabel = colorScheme === 'dark' ? themeStyles.labelDark : themeStyles.labelLight;
-
-    function handleOptionSelect(value: string) {
-        if (onlyOne) {
-            selectedOption = value;
-            setSelected(value);
-        } else {
-            if (selectedOption?.includes(value)) {
-                if (Array.isArray(selectedOption)) {
-                    selectedOption = selectedOption.filter((option) => option !== value);
-                    setSelected(selectedOption.filter((option) => option !== value));
-                } else {
-                    selectedOption = '';
-                    setSelected('');
-                }
-            } else {
-                selectedOption = [...(Array.isArray(selectedOption) ? selectedOption : []), value];
-                setSelected([...(Array.isArray(selectedOption) ? selectedOption : []), value]);
-            }
+        if (onChange) {
+            onChange(newValue, name || '');
         }
-
-        onChange && onChange(value);
     }
 
     return (
-        <View>
-            {label && <Text style={StyleSheet.flatten([[baseStyles.label, themedLabel], labelStyle])}>{label}</Text>}
+        <InputGroup labelInside label={label} icon={icon} className="flex-col">
             <ScrollView
+                id={id}
                 horizontal={horizontal}
                 showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
-                style={StyleSheet.flatten([baseStyles.optionContainer, props.style])}
-                {...props}
+                contentContainerClassName="flex-row gap-2 p-2"
             >
                 {
                     options?.map((option) => (
@@ -78,31 +62,33 @@ function OptionSelector({
                             label={option.label}
                             value={option.value}
                             children={option.children}
-                            isSelected={onlyOne ? selected === option.value : selected.includes(option.value)}
+                            isSelected={value === option.value}
                             onPress={handleOptionSelect}
                         />
                     ))
                 }
             </ScrollView>
-        </View>
+        </InputGroup>
     );
 }
 
-function OptionItem({ label, value, children, isSelected, onPress, ...props }: OptionItemProps) {
-    const colorScheme = useColorScheme();
-    const themedOption = colorScheme === 'dark' ? themeStyles.optionDark : themeStyles.optionLight;
-    const themedLabel = colorScheme === 'dark' ? themeStyles.labelDark : themeStyles.labelLight;
-
+function OptionItem({ label, value, children, isSelected, onPress }: OptionItemProps) {
     return (
         <TouchableOpacity
-            style={StyleSheet.flatten([baseStyles.option, themedOption, isSelected && baseStyles.selectedOption])}
+            className={clsx(
+                `
+                    flex-col items-center justify-center gap-2
+                    p-6
+                    border border-solid rounded-xl
+                `,
+                isSelected ? "border-yellow-600 bg-yellow-600/50" : "border-zinc-300 dark:border-zinc-700",
+            )}
             onPress={() => {
                 onPress && onPress(value)
             }}
-            {...props}
         >
-            {children && <View style={baseStyles.icon}>{children}</View>}
-            {label && <Text style={themedLabel}>{label}</Text>}
+            {children && <View className="h-6 w-6 items-center justify-center">{children}</View>}
+            {label && <Text className="text-zinc-700 dark:text-zinc-300">{label}</Text>}
         </TouchableOpacity>
     );
 }
