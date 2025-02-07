@@ -3,7 +3,7 @@ import { Alert } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
 import { PanelContainer } from "@/components/Container";
-import { TextField, OptionSelector, Button } from "@/components/Input";
+import { InputText, OptionSelector, Button } from "@/components/Input";
 import { useTransactionDatabase } from "@/database/useTransactionDatabase";
 import { useCategoriesDatabase } from "@/database/useCategoriesDatabase";
 import { Category } from "@/Types";
@@ -82,8 +82,8 @@ function NewExpense() {
 
     return (
         <PanelContainer>
-            <TextField label="Value" onChangeText={setValue} value={value} keyboardType="number-pad" />
-            <TextField label="Description" onChangeText={setDescription} value={description} />
+            <InputText label="Value" onChange={setValue} value={value} keyboardType="number-pad" />
+            <InputText label="Description" onChange={setDescription} value={description} />
             <OptionSelector label="Category" onChange={handleCategoryChange} onlyOne={true} options={
                 categories.map((category) => ({
                     label: category.name,

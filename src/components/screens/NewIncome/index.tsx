@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Alert } from "react-native";
 
 import { PanelContainer } from "@/components/Container";
-import { TextField, Button } from "@/components/Input";
+import { InputText, Button } from "@/components/Input";
 import { useTransactionDatabase } from "@/database/useTransactionDatabase";
 import { useTransactionStore } from "@/lib/store";
 
@@ -53,8 +53,8 @@ function NewIncome() {
 
   return (
     <PanelContainer>
-      <TextField label="Value" onChangeText={setValue} value={value} keyboardType="number-pad" />
-      <TextField label="Description" onChangeText={setDescription} value={description} />
+      <InputText label="Value" onChange={setValue} value={value} keyboardType="number-pad" />
+      <InputText label="Description" onChange={setDescription} value={description} />
       <Button label="Save" onPress={() => handleSave()} />
     </PanelContainer>
   );

@@ -3,7 +3,7 @@ import { Alert } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
 import { PanelContainer } from "@/components/Container";
-import { OptionSelector, TextField, Button } from "@/components/Input";
+import { OptionSelector, InputText, Button } from "@/components/Input";
 import { ACCENT_COLORS } from "@/constants/theme";
 import { categoryColors, categoryIcons } from "@/constants/categoryOptions";
 import { useCategoryStore } from "@/lib/store";
@@ -67,7 +67,7 @@ function NewCategory() {
 
     return (
         <PanelContainer>
-            <TextField label="Description" onChangeText={setName} value={name} />
+            <InputText label="Description" onChange={setName} value={name} />
             <OptionSelector label="Icon" onChange={handleIconChange} onlyOne={true} options={
                 categoryIcons.map((icon) => ({
                     value: icon,
