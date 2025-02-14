@@ -2,7 +2,7 @@
   "expo": {
     "name": "Kakebo",
     "slug": "kakebo",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -28,10 +28,14 @@
       [
         "expo-splash-screen",
         {
+          "backgroundColor": "#eab308",
           "image": "./assets/images/splash-icon.png",
+          "dark": {
+            "backgroundColor": "#854d0e",
+            "image": "./assets/images/splash-icon-dark.png"
+          },
           "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "resizeMode": "contain"
         }
       ],
       "expo-sqlite"
