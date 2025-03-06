@@ -6,6 +6,7 @@ export default function Header() {
             p-3
             flex-row justify-between items-center
             bg-white dark:bg-black
+            border-b border-solid border-zinc-100 dark:border-zinc-900
         ">
             <View className="flex-1" />
             <View className="flex-1 items-center justify-center">

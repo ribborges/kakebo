@@ -7,7 +7,7 @@ export default function Spacer({ space = 60, vertical, className }: SeparatorPro
     return <View
         style={vertical ? { marginRight: space / 2, marginLeft: space / 2 } : { marginTop: space / 2, marginBottom: space / 2 }}
         className={clsx(
-            "box-border border-solid border-zinc-500/50",
+            "box-border border-solid border-zinc-200 dark:border-zinc-900",
             vertical ? "h-full border-r" : "w-full border-t",
             className || ""
         )} />;

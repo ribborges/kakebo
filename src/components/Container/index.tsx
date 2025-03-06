@@ -29,9 +29,9 @@ function PanelContainer({ title, className, children }: ContainerProps) {
         <View className={clsx(
             `
                 m-2 p-4
-                bg-zinc-100 bg-opacity-50 dark:bg-zinc-900 dark:bg-opacity-50
+                bg-zinc-100 dark:bg-zinc-950
                 border border-solid rounded-3xl
-                border-zinc-200 border-opacity-50 dark:border-zinc-800 dark:border-opacity-50
+                border-zinc-200 dark:border-zinc-900
             `, className
         )}>
             {title ? <Title>{title}</Title> : <></>}

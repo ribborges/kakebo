@@ -14,8 +14,8 @@ export default function ProfilePic({ className, src, iconSize }: ProfilePicProps
             items-center justify-center
             overflow-hidden
             border-2 border-solid rounded-full
-            bg-zinc-100 dark:bg-zinc-900
-            border-zinc-200 dark:border-zinc-800`,
+            bg-zinc-100 dark:bg-zinc-950
+            border-zinc-200 dark:border-zinc-900`,
             className
         )}>
             {

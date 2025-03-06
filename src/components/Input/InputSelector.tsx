@@ -31,7 +31,7 @@ export default function Selector({ items, value, onChange, style, ...props }: Se
                     dropdownIconColor={colorScheme === 'dark' ? "white" : "black"}
                     itemStyle={{
                         color: colorScheme === 'dark' ? "white" : "black",
-                        backgroundColor: colorScheme === 'dark' ? "black" : "white"
+                        backgroundColor: colorScheme === 'dark' ? "#09090b" : "#f4f4f5"
                     }}
                     {...props}
                 >
@@ -42,7 +42,7 @@ export default function Selector({ items, value, onChange, style, ...props }: Se
                             value={item.value}
                             style={{
                                 color: colorScheme === 'dark' ? "white" : "black",
-                                backgroundColor: colorScheme === 'dark' ? "#333333" : "#dddddd"
+                                backgroundColor: colorScheme === 'dark' ? "#09090b" : "#f4f4f5"
                             }}
                         />
                     ))}

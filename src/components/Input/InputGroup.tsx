@@ -28,10 +28,8 @@ export default function InputGroup(props: InputGroupProps) {
                 `
                 m-1
                 flex-row flex-nowrap
-                rounded-xl border-2 border-solid border-zinc-400 dark:border-zinc-700
-                hover:shadow-2xl focus:shadow-2xl
-                hover:shadow-zinc-950/20 focus:shadow-zinc-950/20
-                dark:hover:shadow-zinc-200/20 dark:focus:shadow-zinc-200/20
+                border-2 border-solid rounded-xl
+                border-zinc-200 dark:border-zinc-900
                 overflow-hidden
                 `
             )}>
