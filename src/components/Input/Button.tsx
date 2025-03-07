@@ -20,10 +20,9 @@ export default function Button({ buttonColors = "bg-yellow-600 border-yellow-600
             className={clsx(
                 `
                     disabled:bg-transparent
-                    border border-solid
+                    border border-solid rounded-3xl
                     basis-[max-content] items-center justify-center content-center gap-2
                     p-4 m-1
-                    rounded-xl
                 `, buttonColors, props.className
             )}
         >

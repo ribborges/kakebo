@@ -60,7 +60,7 @@ function NewCategory() {
     }
 
     return (
-        <PanelContainer>
+        <PanelContainer className="gap-2">
             <InputText
                 id='name'
                 name='name'

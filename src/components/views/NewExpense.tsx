@@ -84,7 +84,7 @@ function NewExpense() {
     }, []);
 
     return (
-        <PanelContainer>
+        <PanelContainer className="gap-2">
             <InputText
                 id='value'
                 name='value'

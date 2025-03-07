@@ -4,6 +4,7 @@ import { InputSelector } from "@/components/Input";
 import { PanelContainer } from "@/components/Container";
 import { useFilterStore } from "@/lib/store";
 import { Foundation } from "@expo/vector-icons";
+import { View } from "react-native";
 
 export default function DateSelector() {
     const [month, setMonth] = useState(new Date().getMonth() + 1);
@@ -25,7 +26,7 @@ export default function DateSelector() {
     }
 
     return (
-        <PanelContainer className="flex-row gap-2">
+        <View className="flex-row gap-2 p-4">
             <InputSelector
                 placeholder="Month"
                 value={month}
@@ -77,6 +78,6 @@ export default function DateSelector() {
                     value: year
                 }))}
             />
-        </PanelContainer>
+        </View>
     );
 }

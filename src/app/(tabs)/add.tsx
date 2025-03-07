@@ -8,7 +8,7 @@ import NewSaving from "@/components/views/NewSaving";
 
 export default function AddPage() {
     return (
-        <View className="flex-1">
+        <View className="flex-1 pt-4">
             <Toggle id="add" items={[
                 {
                     label: "Income",
