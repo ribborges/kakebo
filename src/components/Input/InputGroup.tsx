@@ -28,7 +28,7 @@ export default function InputGroup(props: InputGroupProps) {
                 `
                 m-1
                 flex-row flex-nowrap
-                border-2 border-solid rounded-xl
+                border-2 border-solid rounded-3xl
                 border-zinc-200 dark:border-zinc-900
                 overflow-hidden
                 `
