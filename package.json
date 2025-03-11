@@ -2,7 +2,7 @@
   "name": "kakebo",
   "description": "Kakebo is a simple personal finance app inspered by the japanese savings method",
   "main": "expo-router/entry",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "license": "MPL-2.0",
   "repository": "https://github.com/ribborges/kakebo",
   "author": {
@@ -35,10 +35,10 @@
     "expo-haptics": "~14.0.1",
     "expo-linking": "~7.0.5",
     "expo-router": "~4.0.17",
-    "expo-splash-screen": "~0.29.19",
+    "expo-splash-screen": "~0.29.22",
     "expo-sqlite": "~15.1.2",
     "expo-status-bar": "~2.0.1",
-    "expo-symbols": "~0.2.0",
+    "expo-symbols": "~0.2.2",
     "expo-system-ui": "~4.0.8",
     "expo-web-browser": "^14.0.2",
     "nativewind": "^4.1.23",
@@ -55,7 +55,7 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.9",
+    "@babel/core": "^7.26.10",
     "@types/jest": "^29.5.14",
     "@types/react": "~18.3.12",
     "@types/react-test-renderer": "^18.3.0",
