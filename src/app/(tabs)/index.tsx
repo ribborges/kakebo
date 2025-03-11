@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import { ScrollView, RefreshControl, Alert } from 'react-native';
 
 import Balance from '@/components/Balance';
-import { Categories, TransactionHistory } from '@/components/Categories';
+import { Categories } from '@/components/Categories';
 import { useCategoryStore, useFilterStore, useTransactionStore } from '@/lib/store'
 import { useCategoriesDatabase } from '@/database/useCategoriesDatabase';
 import { useTransactionDatabase } from '@/database/useTransactionDatabase';
 import DateSelector from '@/components/DateSelector';
 import { Blanckspace } from '@/components/Separator';
+import { Transactions } from '@/components/Transactions';
 
 export default function MainPage() {
     const [refreshing, setRefreshing] = React.useState(false);
@@ -62,7 +63,7 @@ export default function MainPage() {
             <DateSelector />
             <Balance />
             <Categories />
-            <TransactionHistory />
+            <Transactions />
             <Blanckspace space={80} />
         </ScrollView>
     );

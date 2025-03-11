@@ -1,8 +1,7 @@
-import { View, Text, Alert, Linking } from "react-native";
+import { View, Text, Linking } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
 import { Button, OptionButton } from "@/components/Input";
-import { PanelContainer } from "@/components/Container";
 import { UserTag } from "@/components/User";
 import { useResetData } from "@/database/useResetData";
 import { useCategoryStore, useTransactionStore } from "@/lib/store";
@@ -60,6 +59,7 @@ export default function ProfilePage() {
       await reset.deleteDatabase();
       setTransactions([]);
       setCategories(await categoriesDb.list());
+      hide();
     } catch (error) {
       console.error(error);
     }

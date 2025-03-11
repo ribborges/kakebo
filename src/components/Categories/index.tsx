@@ -20,7 +20,7 @@ function Categories() {
             <View className="gap-8 pt-2">
                 {
                     categories.map((expense, index) => (
-                        <Expense
+                        <Category
                             key={index}
                             title={expense.name}
                             icon={expense.icon}
@@ -38,39 +38,7 @@ function Categories() {
     );
 }
 
-function TransactionHistory() {
-    const { transactions } = useTransactionStore();
-
-    if (transactions.length > 0) {
-        return (
-            <Container title="Transaction History">
-                <View className="gap-8 pt-2">
-                    {
-                        transactions.map((transaction, index) => (
-                            <Expense
-                                key={index}
-                                title={transaction.description}
-                                icon={"dollar"}
-                                amount={transaction.value}
-                                iconColor={
-                                    transaction.transaction_type === 1
-                                        ? "#22c55e"
-                                        : transaction.transaction_type === 2
-                                            ? "#ef4444"
-                                            : transaction.transaction_type === 3
-                                                ? "#eab308"
-                                                : "#3b82f6"
-                                }
-                            />
-                        ))
-                    }
-                </View>
-            </Container>
-        );
-    } else { return null; }
-}
-
-function Expense({ title, icon, iconColor, amount }: ExpenseCategoryProps) {
+function Category({ title, icon, iconColor, amount }: ExpenseCategoryProps) {
     return (
         <View className="flex-row items-center gap-4">
             <View className="h-12 w-12 items-center justify-center">
@@ -84,4 +52,4 @@ function Expense({ title, icon, iconColor, amount }: ExpenseCategoryProps) {
     );
 }
 
-export { Categories, TransactionHistory };
+export { Categories, Category };
