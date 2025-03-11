@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Alert } from "react-native";
+import { View, Text } from "react-native";
 import { FontAwesome6 } from "@expo/vector-icons";
 
 import { PanelContainer } from "@/components/Container";
 import { InputText, Button } from "@/components/Input";
 import { useTransactionDatabase } from "@/database/useTransactionDatabase";
 import { useTransactionStore } from "@/lib/store";
+import useModal from "@/hooks/useModal";
 
 function NewSaving() {
     const [savingData, setSavingData] = useState({
@@ -15,6 +16,19 @@ function NewSaving() {
 
     const { addTransaction } = useTransactionStore();
     const transactionDb = useTransactionDatabase();
+
+    const { show } = useModal();
+
+    const resultModal = (title: string, message: string) => {
+        show({
+            title,
+            content: (
+                <View className="gap-2 px-6 pb-6">
+                    <Text className="text-zinc-800 dark:text-zinc-200">{message}</Text>
+                </View>
+            )
+        });
+    }
 
     const onChange = (value: string, name: string) => {
         setSavingData((prevState: any) => ({
@@ -49,13 +63,15 @@ function NewSaving() {
                 category_id: res.category_id
             });
 
-            Alert.alert('Success', 'Saving added successfully with ID: ' + res.id);
+            resultModal('Success', 'Saving "' + res.description + '" added successfully');
         } catch (error) {
             if (error instanceof Error) {
-                return Alert.alert('Error', error.message);
+                resultModal('Error', error.message);
+                return;
             }
 
-            return Alert.alert('Error', 'An unknown error occurred');
+            resultModal('Error', 'An unknown error occurred');
+            return;
         } finally {
             setSavingData({
                 value: '',

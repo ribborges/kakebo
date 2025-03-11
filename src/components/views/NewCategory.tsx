@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert } from "react-native";
+import { View, Text } from "react-native";
 import { FontAwesome, FontAwesome6 } from "@expo/vector-icons";
 
 import { PanelContainer } from "@/components/Container";
@@ -7,6 +7,7 @@ import { OptionSelector, InputText, Button } from "@/components/Input";
 import { categoryColors, categoryIcons } from "@/constants/categoryOptions";
 import { useCategoryStore } from "@/lib/store";
 import { useCategoriesDatabase } from "@/database/useCategoriesDatabase";
+import useModal from "@/hooks/useModal";
 
 function NewCategory() {
     const [categoryData, setCategoryData] = useState({
@@ -17,6 +18,19 @@ function NewCategory() {
 
     const { addCategory } = useCategoryStore();
     const categoryDb = useCategoriesDatabase();
+
+    const { show } = useModal();
+
+    const resultModal = (title: string, message: string) => {
+        show({
+            title,
+            content: (
+                <View className="gap-2 px-6 pb-6">
+                    <Text className="text-zinc-800 dark:text-zinc-200">{message}</Text>
+                </View>
+            )
+        });
+    }
 
     const onChange = (value: string, name: string) => {
         setCategoryData((prevState: any) => ({
@@ -43,13 +57,15 @@ function NewCategory() {
                 color: res.color
             })
 
-            Alert.alert('Success', 'Category added successfully with ID: ' + res.id);
+            resultModal('Success', 'Category "' + res.name + '" added successfully');
         } catch (error) {
             if (error instanceof Error) {
-                return Alert.alert('Error', error.message);
+                resultModal('Error', error.message);
+                return;
             }
 
-            return Alert.alert('Error', 'An unknown error occurred');
+            resultModal('Error', 'An unknown error occurred');
+            return;
         } finally {
             setCategoryData({
                 name: '',

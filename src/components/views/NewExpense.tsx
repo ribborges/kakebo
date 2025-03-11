@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert } from "react-native";
+import { View, Text } from "react-native";
 import { FontAwesome, FontAwesome6 } from "@expo/vector-icons";
 
 import { PanelContainer } from "@/components/Container";
@@ -8,6 +8,7 @@ import { useTransactionDatabase } from "@/database/useTransactionDatabase";
 import { useCategoriesDatabase } from "@/database/useCategoriesDatabase";
 import { Category } from "@/Types";
 import { useTransactionStore } from "@/lib/store";
+import useModal from "@/hooks/useModal";
 
 function NewExpense() {
     const [expenseData, setExpenseData] = useState({
@@ -20,6 +21,19 @@ function NewExpense() {
     const { addTransaction } = useTransactionStore();
     const transactionDb = useTransactionDatabase();
     const categoryDb = useCategoriesDatabase();
+
+    const { show } = useModal();
+
+    const resultModal = (title: string, message: string) => {
+        show({
+            title,
+            content: (
+                <View className="gap-2 px-6 pb-6">
+                    <Text className="text-zinc-800 dark:text-zinc-200">{message}</Text>
+                </View>
+            )
+        });
+    }
 
     const onChange = (value: string, name: string) => {
         setExpenseData((prevState: any) => ({
@@ -54,13 +68,15 @@ function NewExpense() {
                 category_id: res.category_id
             });
 
-            Alert.alert('Success', 'Expense added successfully with ID: ' + res.id);
+            resultModal('Success', 'Expense "' + res.description + '" added successfully');
         } catch (error) {
             if (error instanceof Error) {
-                return Alert.alert('Error', error.message);
+                resultModal('Error', error.message);
+                return;
             }
 
-            return Alert.alert('Error', 'An unknown error occurred');
+            resultModal('Error', 'An unknown error occurred');
+            return;
         } finally {
             setExpenseData({
                 value: '',
