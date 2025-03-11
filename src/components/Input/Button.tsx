@@ -19,6 +19,7 @@ export default function Button({ buttonColors = "bg-yellow-600 border-yellow-600
             onPress={props.onPress}
             className={clsx(
                 `
+                    flex-1
                     disabled:bg-transparent
                     border border-solid rounded-3xl
                     basis-[max-content] items-center justify-center content-center gap-2
