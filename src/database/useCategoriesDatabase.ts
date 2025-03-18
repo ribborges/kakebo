@@ -26,6 +26,25 @@ export function useCategoriesDatabase() {
         }
     }
 
+    async function update(id: number, data: Omit<Category, 'id'>) {
+        const statement = await db.prepareAsync(
+            'UPDATE expense_categories SET name = $name, icon = $icon, color = $color WHERE id = $id'
+        );
+
+        try {
+            await statement.executeAsync({
+                $id: id,
+                $name: data.name,
+                $icon: data.icon,
+                $color: data.color
+            });
+
+            return { id, ...data };
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async function list() {
         const query = 'SELECT * FROM expense_categories';
 
@@ -38,5 +57,5 @@ export function useCategoriesDatabase() {
         }
     }
 
-    return { create, list };
+    return { create, update, list };
 }
