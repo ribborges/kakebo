@@ -1,9 +1,11 @@
-import { View, Text, TouchableOpacity } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+import { View, Text } from 'react-native';
+import { useRouter } from 'expo-router';
+import { Entypo, FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 
 import { Container } from '@/components/Container';
 import { useCategoryStore, useTransactionStore } from '@/lib/store';
 import { useTransactionDatabase } from '@/database/useTransactionDatabase';
+import { Dropdown } from '@/components/Dropdown';
 
 interface TransactionProps {
     id: number
@@ -42,9 +44,11 @@ function Transactions() {
 }
 
 function Transaction({ id, title, icon, iconColor, amount, type }: TransactionProps) {
+    const router = useRouter();
+    
     const transactionDb = useTransactionDatabase();
     const { transactions, deleteTransaction } = useTransactionStore();
-    
+
     const handleDelete = async (id: number) => {
         await transactionDb.detele(id);
         deleteTransaction(transactions.findIndex((transaction) => transaction.id === id));
@@ -59,10 +63,10 @@ function Transaction({ id, title, icon, iconColor, amount, type }: TransactionPr
                 <Text className="text-base font-black text-black dark:text-white">{title}</Text>
                 <Text className="text-sm text-zinc-700 dark:text-zinc-300">${amount}</Text>
             </View>
-            <View className="flex-row items-center gap-8">
+            <View className="flex-row items-center gap-2">
                 <FontAwesome
                     name="circle"
-                    size={16}
+                    size={12}
                     color={
                         type === 1
                             ? "#22c55e"
@@ -73,11 +77,22 @@ function Transaction({ id, title, icon, iconColor, amount, type }: TransactionPr
                                     : "#3b82f6"
                     }
                 />
-                <TouchableOpacity onPress={() => handleDelete(id)}>
-                    <Text className="text-red-500">
-                        <FontAwesome name="trash" size={22} />
+                <Dropdown align="right" items={[
+                    {
+                        label: "Edit",
+                        icon: <Entypo name="pencil" size={14} />,
+                        onClick: () => router.navigate({ pathname: "/edit_transaction", params: { id } })
+                    },
+                    {
+                        label: "Delete",
+                        icon: <FontAwesome5 name="trash" size={14} />,
+                        onClick: () => handleDelete(id)
+                    }
+                ]}>
+                    <Text className="text-zinc-600 dark:text-zinc-400">
+                        <Entypo name="dots-three-vertical" size={20} />
                     </Text>
-                </TouchableOpacity>
+                </Dropdown>
             </View>
         </View>
     );
