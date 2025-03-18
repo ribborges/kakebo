@@ -26,7 +26,7 @@ export default function DateSelector() {
     }
 
     return (
-        <View className="flex-row gap-2 p-4">
+        <View className="flex-row gap-2 p-2">
             <InputSelector
                 placeholder="Month"
                 value={month}
