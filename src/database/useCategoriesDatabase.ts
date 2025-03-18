@@ -26,6 +26,22 @@ export function useCategoriesDatabase() {
         }
     }
 
+    async function remove(id: number) {
+        const statement = await db.prepareAsync(
+            'DELETE FROM expense_categories WHERE id = $id'
+        );
+
+        try {
+            await statement.executeAsync({ $id: id });
+
+            return id;
+        } catch (error) {
+            throw error;
+        } finally {
+            await statement.finalizeAsync();
+        }
+    }
+
     async function update(id: number, data: Omit<Category, 'id'>) {
         const statement = await db.prepareAsync(
             'UPDATE expense_categories SET name = $name, icon = $icon, color = $color WHERE id = $id'
@@ -57,5 +73,5 @@ export function useCategoriesDatabase() {
         }
     }
 
-    return { create, update, list };
+    return { create, remove, update, list };
 }

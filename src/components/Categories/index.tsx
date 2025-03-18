@@ -5,6 +5,8 @@ import { Entypo, FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import { PanelContainer } from '@/components/Container';
 import { useCategoryStore, useTransactionStore } from '@/lib/store';
 import { Dropdown } from '@/components/Dropdown';
+import { useCategoriesDatabase } from '@/database/useCategoriesDatabase';
+import useModal from '@/hooks/useModal';
 
 interface ExpenseCategoryProps {
     id: number;
@@ -45,6 +47,32 @@ function Categories() {
 function Category({ id, title, icon, iconColor, amount }: ExpenseCategoryProps) {
     const router = useRouter();
 
+    const categoryDb = useCategoriesDatabase();
+    const { categories, deleteCategory } = useCategoryStore();
+    const { transactions } = useTransactionStore();
+
+    const { show } = useModal();
+
+    const resultModal = (title: string, message: string) => {
+        show({
+            title,
+            content: (
+                <View className="gap-2 px-6 pb-6">
+                    <Text className="text-zinc-800 dark:text-zinc-200">{message}</Text>
+                </View>
+            )
+        });
+    }
+
+    const handleDelete = async (id: number) => {
+        if (transactions.some((transaction) => transaction.category_id === id)) {
+            resultModal('Error', 'Cannot delete category with transactions');
+        } else {
+            await categoryDb.remove(id);
+            deleteCategory(categories.findIndex((transaction) => transaction.id === id));
+        }
+    }
+
     return (
         <View className="flex-row items-center gap-4">
             <View className="h-12 w-12 items-center justify-center">
@@ -63,7 +91,7 @@ function Category({ id, title, icon, iconColor, amount }: ExpenseCategoryProps) 
                 {
                     label: "Delete",
                     icon: <FontAwesome5 name="trash" size={14} />,
-                    onClick: () => { }
+                    onClick: () => handleDelete(id)
                 }
             ]}>
                 <Text className="text-zinc-600 dark:text-zinc-400">
