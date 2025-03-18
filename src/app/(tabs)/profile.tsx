@@ -31,7 +31,7 @@ export default function ProfilePage() {
             <TextLink onPress={() => Linking.openURL('https://github.com/ribborges/kakebo')}>Github</TextLink>
           </View>
           <View className="flex-row items-center gap-1">
-            <Text className="text-zinc-800 dark:text-zinc-200">Licensed unde:</Text>
+            <Text className="text-zinc-800 dark:text-zinc-200">Licensed under:</Text>
             <TextLink onPress={() => Linking.openURL('https://www.mozilla.org/en-US/MPL/2.0/')}>Mozilla Public License v2.0</TextLink>
           </View>
           <Text className="text-zinc-800 dark:text-zinc-200">v1.0.6</Text>
