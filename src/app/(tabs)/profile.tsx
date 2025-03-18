@@ -1,4 +1,5 @@
 import { View, Text, Linking } from "react-native";
+import { useRouter } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
 
 import { Button, MenuOption } from "@/components/Input";
@@ -11,6 +12,8 @@ import useModal from "@/hooks/useModal";
 import TextLink from "@/components/TextLink";
 
 export default function ProfilePage() {
+  const router = useRouter();
+  
   const { setTransactions } = useTransactionStore();
   const { setCategories } = useCategoryStore();
 
@@ -77,13 +80,11 @@ export default function ProfilePage() {
                         onPress={() => Alert.alert('Settings')}
                     />
                 */}
-        {/*
-                    <MenuOption
-                        label="Financial history"
-                        icon={<FontAwesome name="history" size={22} />}
-                        onPress={() => Alert.alert('Financial history')}
-                    />
-                */}
+        <MenuOption
+          label="Financial history"
+          icon={<FontAwesome name="history" size={22} />}
+          onPress={() => router.navigate({ pathname: "/financial_history" })}
+        />
         <MenuOption
           label="About"
           icon={<FontAwesome name="info" size={20} />}

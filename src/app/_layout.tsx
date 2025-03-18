@@ -30,6 +30,7 @@ export default function RootLayout() {
           <Stack.Screen options={{ headerShown: false }} name="(tabs)" />
           <Stack.Screen options={{ title: "Edit Transaction" }} name="edit_transaction" />
           <Stack.Screen options={{ title: "Edit Category" }} name="edit_category" />
+          <Stack.Screen options={{ title: "Financial History" }} name="financial_history" />
         </Stack>
       </ModalProvider>
     </SQLiteProvider>
