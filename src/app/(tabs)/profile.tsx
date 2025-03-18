@@ -76,13 +76,13 @@ export default function ProfilePage() {
         {/*
                     <MenuOption
                         label="Settings"
-                        icon={<FontAwesome name="gear" size={22} />}
+                        icon={<FontAwesome name="gear" size={20} />}
                         onPress={() => Alert.alert('Settings')}
                     />
                 */}
         <MenuOption
           label="Financial history"
-          icon={<FontAwesome name="history" size={22} />}
+          icon={<FontAwesome name="history" size={20} />}
           onPress={() => router.navigate({ pathname: "/financial_history" })}
         />
         <MenuOption
