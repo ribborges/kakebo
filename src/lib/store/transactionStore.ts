@@ -8,7 +8,7 @@ type State = {
 type Actions = {
     setTransactions: (transactions: Transaction[]) => void,
     addTransaction: (transaction: Transaction) => void,
-    updateTransaction: (id: number, value: number, date: string, description: string) => void,
+    updateTransaction: (id: number, data: Transaction) => void,
     deleteTransaction: (index: number) => void
 }
 
@@ -18,8 +18,8 @@ const useTransactionStore = create<State & Actions>()((set) => ({
     addTransaction: (transaction) => set((state) => ({
         transactions: [...state.transactions, transaction]
     })),
-    updateTransaction: (id, value, date, description) => set((state) => ({
-        transactions: state.transactions.map((transaction, i) => i === id ? { ...transaction, value, date, description } : transaction)
+    updateTransaction: (id, data) => set((state) => ({
+        transactions: state.transactions.map((transaction) => transaction.id === id ? data : transaction)
     })),
     deleteTransaction: (index) => set((state) => ({
         transactions: state.transactions.filter((_, i) => i !== index)
