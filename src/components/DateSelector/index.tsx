@@ -1,35 +1,27 @@
-import { useState } from "react";
-
-import { InputSelector } from "@/components/Input";
-import { PanelContainer } from "@/components/Container";
-import { useFilterStore } from "@/lib/store";
-import { Foundation } from "@expo/vector-icons";
 import { View } from "react-native";
 
-export default function DateSelector() {
-    const [month, setMonth] = useState(new Date().getMonth() + 1);
-    const [year, setYear] = useState(new Date().getFullYear());
+import { InputSelector } from "@/components/Input";
+import { useFilterStore } from "@/lib/store";
 
-    const { setDateFilter } = useFilterStore();
+export default function DateSelector() {
+    const { setDateFilter, dateFilter } = useFilterStore();
 
     const currentYear = (new Date()).getFullYear();
     const yearsList = Array.from(new Array(10), (val, index) => currentYear - index);
 
     const handleMonthChange = (value: string | number) => {
-        setMonth(Number(value));
-        setDateFilter(Number(value), year);
+        setDateFilter(Number(value), dateFilter.year);
     }
 
     const handleYearChange = (value: string | number) => {
-        setYear(Number(value));
-        setDateFilter(month, Number(value));
+        setDateFilter(dateFilter.month, Number(value));
     }
 
     return (
         <View className="flex-row gap-2 p-2">
             <InputSelector
                 placeholder="Month"
-                value={month}
+                value={dateFilter.month}
                 onChange={handleMonthChange}
                 items={[{
                     label: 'January',
@@ -71,7 +63,7 @@ export default function DateSelector() {
             />
             <InputSelector
                 placeholder="Year"
-                value={year}
+                value={dateFilter.year}
                 onChange={handleYearChange}
                 items={yearsList.map(year => ({
                     label: year.toString(),
