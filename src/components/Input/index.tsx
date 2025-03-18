@@ -5,6 +5,6 @@ import InputPassword from "./InputPassword";
 import InputSelector from "./InputSelector";
 import OptionSelector from "./OptionSelector";
 import Button from "./Button";
-import OptionButton from "./OptionButton";
+import MenuOption from "./MenuOption";
 
-export { Label, InputGroup, InputText, InputPassword, InputSelector, OptionSelector, Button, OptionButton };
+export { Label, InputGroup, InputText, InputPassword, InputSelector, OptionSelector, Button, MenuOption };

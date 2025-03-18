@@ -1,7 +1,7 @@
 import { View, Text, Linking } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
-import { Button, OptionButton } from "@/components/Input";
+import { Button, MenuOption } from "@/components/Input";
 import { UserTag } from "@/components/User";
 import { useResetData } from "@/database/useResetData";
 import { useCategoryStore, useTransactionStore } from "@/lib/store";
@@ -69,30 +69,32 @@ export default function ProfilePage() {
     <View className="p-4 flex-1">
       <UserTag />
       <Spacer space={30} />
+      <View className="gap-2">
         {/*
-                    <OptionButton
+                    <MenuOption
                         label="Settings"
                         icon={<FontAwesome name="gear" size={22} />}
                         onPress={() => Alert.alert('Settings')}
                     />
                 */}
         {/*
-                    <OptionButton
+                    <MenuOption
                         label="Financial history"
                         icon={<FontAwesome name="history" size={22} />}
                         onPress={() => Alert.alert('Financial history')}
                     />
                 */}
-        <OptionButton
+        <MenuOption
           label="About"
-          icon={<FontAwesome name="info" size={22} />}
+          icon={<FontAwesome name="info" size={20} />}
           onPress={aboutModal}
         />
-        <OptionButton
+        <MenuOption
           label="Reset data"
-          icon={<FontAwesome name="trash" size={22} />}
+          icon={<FontAwesome name="trash" size={20} />}
           onPress={resetModal}
         />
+      </View>
     </View>
   );
 }
