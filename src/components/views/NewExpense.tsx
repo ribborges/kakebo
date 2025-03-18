@@ -6,8 +6,7 @@ import { PanelContainer } from "@/components/Container";
 import { InputText, OptionSelector, Button } from "@/components/Input";
 import { useTransactionDatabase } from "@/database/useTransactionDatabase";
 import { useCategoriesDatabase } from "@/database/useCategoriesDatabase";
-import { Category } from "@/Types";
-import { useTransactionStore } from "@/lib/store";
+import { useCategoryStore, useTransactionStore } from "@/lib/store";
 import useModal from "@/hooks/useModal";
 
 function NewExpense() {
@@ -16,7 +15,8 @@ function NewExpense() {
         description: '',
         category: ''
     });
-    const [categories, setCategories] = useState<Category[]>([]);
+    
+    const { categories } = useCategoryStore();
 
     const { addTransaction } = useTransactionStore();
     const transactionDb = useTransactionDatabase();
@@ -85,19 +85,6 @@ function NewExpense() {
             });
         }
     };
-
-    const loadCategories = async () => {
-        try {
-            const categories = await categoryDb.list();
-            setCategories(categories);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    useEffect(() => {
-        loadCategories();
-    }, []);
 
     return (
         <PanelContainer className="gap-2">
