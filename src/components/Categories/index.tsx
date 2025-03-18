@@ -1,10 +1,13 @@
 import { View, Text } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import { Entypo, FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 
-import { Container, PanelContainer } from '@/components/Container';
+import { PanelContainer } from '@/components/Container';
 import { useCategoryStore, useTransactionStore } from '@/lib/store';
+import { Dropdown } from '@/components/Dropdown';
 
 interface ExpenseCategoryProps {
+    id: number;
     title: string;
     icon: string;
     amount: number;
@@ -19,15 +22,16 @@ function Categories() {
         <PanelContainer title="Expense Categories">
             <View className="gap-8 pt-2">
                 {
-                    categories.map((expense, index) => (
+                    categories.map((category, index) => (
                         <Category
                             key={index}
-                            title={expense.name}
-                            icon={expense.icon}
-                            iconColor={expense.color}
+                            id={category.id}
+                            title={category.name}
+                            icon={category.icon}
+                            iconColor={category.color}
                             amount={
                                 transactions
-                                    .filter((transaction) => transaction.category_id === expense.id)
+                                    .filter((transaction) => transaction.category_id === category.id)
                                     .reduce((acc, curr) => acc + curr.value, 0)
                             }
                         />
@@ -38,7 +42,9 @@ function Categories() {
     );
 }
 
-function Category({ title, icon, iconColor, amount }: ExpenseCategoryProps) {
+function Category({ id, title, icon, iconColor, amount }: ExpenseCategoryProps) {
+    const router = useRouter();
+
     return (
         <View className="flex-row items-center gap-4">
             <View className="h-12 w-12 items-center justify-center">
@@ -48,6 +54,22 @@ function Category({ title, icon, iconColor, amount }: ExpenseCategoryProps) {
                 <Text className="text-base font-black text-black dark:text-white">{title}</Text>
                 <Text className="text-sm text-zinc-700 dark:text-zinc-300">${amount}</Text>
             </View>
+            <Dropdown align="right" items={[
+                {
+                    label: "Edit",
+                    icon: <Entypo name="pencil" size={14} />,
+                    onClick: () => router.navigate({ pathname: "/edit_category", params: { id } })
+                },
+                {
+                    label: "Delete",
+                    icon: <FontAwesome5 name="trash" size={14} />,
+                    onClick: () => { }
+                }
+            ]}>
+                <Text className="text-zinc-600 dark:text-zinc-400">
+                    <Entypo name="dots-three-vertical" size={20} />
+                </Text>
+            </Dropdown>
         </View>
     );
 }
