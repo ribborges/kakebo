@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { View, Text } from "react-native";
 import { FontAwesome, FontAwesome6 } from "@expo/vector-icons";
 
 import { PanelContainer } from "@/components/Container";
 import { InputText, OptionSelector, Button } from "@/components/Input";
 import { useTransactionDatabase } from "@/database/useTransactionDatabase";
-import { useCategoriesDatabase } from "@/database/useCategoriesDatabase";
 import { useCategoryStore, useTransactionStore } from "@/lib/store";
 import useModal from "@/hooks/useModal";
 
@@ -20,7 +19,6 @@ function NewExpense() {
 
     const { addTransaction } = useTransactionStore();
     const transactionDb = useTransactionDatabase();
-    const categoryDb = useCategoriesDatabase();
 
     const { show } = useModal();
 
