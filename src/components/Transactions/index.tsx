@@ -50,7 +50,7 @@ function Transaction({ id, title, icon, iconColor, amount, type }: TransactionPr
     const { transactions, deleteTransaction } = useTransactionStore();
 
     const handleDelete = async (id: number) => {
-        await transactionDb.detele(id);
+        await transactionDb.remove(id);
         deleteTransaction(transactions.findIndex((transaction) => transaction.id === id));
     }
 

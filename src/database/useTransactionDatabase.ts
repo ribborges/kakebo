@@ -28,7 +28,7 @@ export function useTransactionDatabase() {
         }
     }
 
-    async function detele(id: number) {
+    async function remove(id: number) {
         const statement = await db.prepareAsync(
             'DELETE FROM transactions WHERE id=$id'
         );
@@ -79,5 +79,5 @@ export function useTransactionDatabase() {
         }
     }
 
-    return { create, detele, update, list };
+    return { create, remove, update, list };
 }
