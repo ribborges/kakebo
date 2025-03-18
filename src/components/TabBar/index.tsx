@@ -32,14 +32,12 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
     return (
 
         <BlurView
-            intensity={20}
-            blurReductionFactor={20}
+            intensity={10}
+            blurReductionFactor={5}
             experimentalBlurMethod="dimezisBlurView"
             className="
                 absolute bottom-2 overflow-hidden
-                self-center
-                border border-t-2 border-solid rounded-full
-                border-zinc-200/40 dark:border-zinc-900/40
+                self-center rounded-full
             "
         >
             <View className="flex-row justify-between items-center bg-zinc-100/40 dark:bg-zinc-950/40">
