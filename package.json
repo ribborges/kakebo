@@ -2,7 +2,7 @@
   "name": "kakebo",
   "description": "Kakebo is a simple personal finance app inspered by the japanese savings method",
   "main": "expo-router/entry",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "license": "MPL-2.0",
   "repository": "https://github.com/ribborges/kakebo",
   "author": {
